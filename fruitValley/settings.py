@@ -31,8 +31,6 @@ INSTALLED_APPS = [
 
     'products',
     'buyers',
-    'sellers',
-    'categories',
     'orders',
 ]
 
@@ -131,3 +129,4 @@ EMAIL_HOST_USER = env('EMAIL')
 EMAIL_HOST_PASSWORD = env('EMAIL_PASSWORD')
 EMAIL_PORT = 587
 
+# AUTH_USER_MODEL = 'buyers.Buyer'

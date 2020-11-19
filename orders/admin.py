@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from . import models
+
+
+@admin.register(models.Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_per_page = 30
