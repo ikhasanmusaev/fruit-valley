@@ -1,0 +1,19 @@
+{% load i18n %}
+<div class="container">
+    <h1 class="title">
+        {% trans Products %}
+    </h1>
+    <div class="p-nav">
+        <ul>
+            <li><a href="javascript:void(0);" id="category-0" class="active" onclick="by_category(0)">All</a></li>
+            {% for category in categories %}
+                <li><a href="javascript:void(0);" id="category-{{ category.id }}" onclick="by_category({{ category.id }})">{{ category.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="p-products">
+        {% for product in product_list %}
+            {% include '_partials/_product_item.html' %}
+        {% endfor %}
+    </div>
+</div>

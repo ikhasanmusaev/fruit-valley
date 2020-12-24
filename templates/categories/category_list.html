@@ -1,0 +1,21 @@
+{% extends 'base_path.html' %}
+
+{% block content %}
+    <section class="categories">
+        <div class="container">
+
+            {% include 'categories/_sidebar.html' %}
+
+            {% if not is_item %}
+                {% include 'categories/_category_item.html' %}
+            {% else %}
+                <div class="p-products">
+                    {% for product in product_list %}
+                        {% include '_partials/_product_item.html' %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+        </div>
+    </section>
+{% endblock %}

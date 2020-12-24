@@ -1,0 +1,46 @@
+{% extends 'base_path.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="page-cart page-wishlist">
+        <div class="container">
+            <table>
+                <thead>
+                <th></th>
+                <th></th>
+                <th>PRODUCT NAME</th>
+                <th>PRICE</th>
+                <th>STOCK STATUS</th>
+                <th></th>
+                </thead>
+                <tbody class="wishlist">
+                {% for favouriteproduct in favouriteproducts_list %}
+                    <tr id="favourite-product-{{ favouriteproduct.product.id }}">
+                        <td><a href="javascript:void(0);" onclick="remove_favourite('{{ favouriteproduct.product.id }}')"><i
+                                class="far fa-times-circle"></i></a></td>
+                        <td>
+                            <div class="cart-img"><img src="http://{{ request.get_host }}{{ favouriteproduct.product.image.file.url }}"
+                                                       alt=""></div>
+                        </td>
+                        <td><a class="product-name" href="#">{{ favouriteproduct.product.name }}</a></td>
+                        <td class="product-price">{{ favouriteproduct.product.price_for_qty }}</td>
+                        <td class="in-stock">
+                            {% if favouriteproduct.product.status %}
+                                <span>In stock</span>
+                            {% else %}
+                                <p>Out of stock</p>
+                            {% endif %}
+                        </td>
+                        <td class="wishlist-add-cart"><a href="#">Add to cart</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'js/ajax-queries.js' %}"></script>
+{% endblock %}

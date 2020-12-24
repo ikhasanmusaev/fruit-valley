@@ -5,7 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-<form action="{% url 'buyers:activate' uid token %}"></form>
-{{ form }}
+<form action="{% url 'buyers:activate' uid token %}">
+    {% csrf_token %}
+    {{ form }}
 <button type="submit">Change</button>
+
+</form>
 </body>

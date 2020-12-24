@@ -1,0 +1,25 @@
+<nav class='animated bounceInDown'>
+    <ul>
+        <li class='sub-menu active'><a class="sub-menu-title" href='#drop'>Nuts & Seeds<i
+                class="fas fa-chevron-right right"></i></a>
+            <ul>
+                {% for category in category_list %}
+                    <li><a href="{% url 'products:category-detail' category.slug %}"
+                            {% if category.slug|lower == request.resolver_match.kwargs.slug|lower %}
+                           class="active"{% endif %}>{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li class='sub-menu'><a class="sub-menu-title" href='#drop'>Dried Fruit
+            <i class="fas fa-chevron-right right"></i></a>
+            <ul>
+                <li><a href='#'>Almonds</a></li>
+                <li><a href='#'>Cashews</a></li>
+                <li><a href='#'>Peanuts</a></li>
+                <li><a href='#'>Pecans</a></li>
+                <li><a href='#'>Walnuts</a></li>
+            </ul>
+        </li>
+        <li><a href='#'>Snacks</a></li>
+    </ul>
+</nav>

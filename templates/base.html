@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>fruit-valley</title>
+</head>
+<body>
+{% include '_partials/header.html' %}
+{% block content_root %}
+    {% block content %}
+
+    {% endblock %}
+{% endblock %}
+    <br><br><br><br><br><br>
+
+{% include '_partials/footer.html' %}
+<script src="{% static 'js/jquery-3.5.1.js' %}"></script>
+<script src="{% static 'js/owl.carousel.js' %}"></script>
+<script src="{% static 'js/js.js' %}"></script>
+{% block script %}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <section class="page-cart">
+        <div class="container">
+            <table>
+                <thead>
+                <th></th>
+                <th></th>
+                <th>PRODUCT NAME</th>
+                <th>PRICE</th>
+                <th>QUANTITY</th>
+                <th>SUBTOTAL</th>
+                </thead>
+                <tbody>
+                {% for cart in cart_list %}
+                    <tr id="cart-item-{{ cart.id }}">
+                        {% include 'orders/_cart_item.html' %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="cart-sidebar">
+                <h3 class="cart-title">
+                    CART TOTALS
+                </h3>
+                <div class="calculate-shipping">
+                    <div class="subtotal">
+                        <p>subtotal <span>$987.42</span></p>
+                    </div>
+                    <div class="calculate">
+                        <p>Calculate shipping</p>
+                        <form action="#">
+                            <select name="country" id="">
+                                <option value="uk">United Kingdom (UK)</option>
+                                <option value="uz">Uzbekistan (UZ)</option>
+                                <option value="uk">USA (US)</option>
+                                <option value="uk">United Kingdom (UK)</option>
+                            </select>
+                            <input type="text" placeholder="Country">
+                            <input type="text" placeholder="City/Town">
+                            <input type="text" placeholder="Postcode">
+                            <button>Update</button>
+                        </form>
+                    </div>
+                    <div class="total">
+                        <p>total <span>$987.42</span></p>
+                    </div>
+                    <div class="go-checkout">
+                        <a href="{% url 'orders:order-checkout' %}">Proceed to checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block script %}
+    <script>
+        let removeCart = (cart_id) => {
+            let cart = $(`#cart-item-${cart_id}`);
+
+            $.ajax({
+                type: "POST",
+                url: `/orders/cart/`,
+                data: {
+                    csrfmiddlewaretoken: "{{csrf_token}}",
+                    delete: cart_id,
+                },
+                success: (response, status) => {
+                    console.log(response, status)
+                    cart.remove()
+                },
+                error: (xhr, error, status) => {
+                    console.log(error);
+                    console.log(status);
+                }
+            })
+        }
+    </script>
+{% endblock %}

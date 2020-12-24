@@ -1,0 +1,29 @@
+{% load static i18n %}
+
+<footer>
+    <div class="container">
+        <div class="logo">
+            <img src="{% static '/images/logo.png' %}" alt="">
+        </div>
+        <ul class="footer-menu">
+            <li><a href="{% url 'products:index-page' %}">{% trans 'Home' %}</a></li>
+            <li><a href="{% url 'products:category-list' %}">{% trans 'Categories' %}</a></li>
+            <li><a href="{% url 'site_pages:about' %}">{% trans 'About us' %}</a></li>
+            <li><a href="{% url 'blogs:blog-list' %}">{% trans 'Blog' %}</a></li>
+            <li><a href="{% url 'site_pages:contacts' %}">{% trans 'Contact us' %}</a></li>
+        </ul>
+        <hr>
+        <div class="copyrights">
+            <div class="copyright">
+                Copyright©2020 Fruitvalley. All Rights Reserved
+            </div>
+            <ul class="copyright-menu">
+                <li><a href="#">{% trans 'FAQ' %}</a></li>
+                <li><a href="#">{% trans 'Returns' %}</a></li>
+                <li><a href="#">{% trans 'Shipping' %}</a></li>
+                <li><a href="#">{% trans 'Privacy' %}</a></li>
+                <li><a href="#">{% trans 'Terms of Services' %}</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>

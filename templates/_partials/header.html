@@ -1,0 +1,83 @@
+{% load static orders i18n %}
+
+<header>
+    <div class="top-header">
+        <div class="container flex">
+            <div class="th-left">
+                <div class="language">
+                    <i class="fas fa-globe"></i>
+                    <form action="{% url 'set_language' %}" method="post" style="display: inline"
+                          id="form-language">{% csrf_token %}
+                        <input name="next" type="hidden" value="{{ redirect_to }}">
+                        <select name="language" ng-model="vm.language" onchange="$('#form-language').submit()">
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            {% get_language_info_list for LANGUAGES as languages %}
+                            {% for language in languages %}
+                                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
+                                        selected{% endif %}>
+                                    {{ language.name_local|capfirst }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </div>
+            </div>
+            <div class="th-middle">
+                <!-- <i class="fas fa-phone-alt"></i>  -->
+                <a href="tel:+998 (97) 123 45 67">+998 (97) 123 45 67</a>
+            </div>
+            <div class="th-right flex">
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'buyers:login_view' %}" class="login">
+                        <i class="fas fa-user"></i>
+                        <span>{% trans "Login" %}</span> /
+                        <span>{% trans "Register" %}</span>
+                    </a>
+                {% else %}
+                    <a href="{% url 'buyers:logout_view' %}" class="login">
+                        <i class="fas fa-user"></i>
+                        <span>Logout</span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+    <div class="container middle-header flex">
+        <div class="logo">
+            <a href="{% url 'products:index-page' %}">
+                <img src="{% static 'images/logo.png' %}" alt="">
+            </a>
+        </div>
+        <form class="search">
+            <input type="text" placeholder="Search this site...">
+            <button><i class="fas fa-search"></i></button>
+
+        </form>
+        <div class="cart">
+            <a href="{% url 'orders:cart-list' %}">
+                <i class="fas fa-shopping-card"></i>
+                <span class="item">{% cart_length request.user.id %} item - </span>
+                <span class="cost">${% cart_sum request.user.id %}</span>
+            </a>
+        </div>
+    </div>
+    <div class="bottom-header">
+        <div class="container flex">
+            <ul class="main-menu">
+                <li><a href="{% url 'products:index-page' %}">{% trans 'Home' %}</a></li>
+                <li><a href="{% url 'products:category-list' %}">{% trans 'Categories' %}</a></li>
+                <li><a href="{% url 'site_pages:about' %}">{% trans 'About us' %}</a></li>
+                <li><a href="{% url 'blogs:blog-list' %}">{% trans 'Blog' %}</a></li>
+                <li><a href="{% url 'site_pages:contacts' %}">{% trans 'Contact us' %}</a></li>
+            </ul>
+            <ul class="socials">
+                <li><a href="#"><img src="{% static '/images/instagram.svg' %}" alt=""></a></li>
+                <li><a href="#"><img src="{% static '/images/vk.svg' %}" alt=""></a></li>
+                <li><a href="#"><img src="{% static '/images/pinterest.svg' %}" alt=""></a></li>
+                <li><a href="#"><img src="{% static '/images/facebook.svg' %}" alt=""></a></li>
+            </ul>
+        </div>
+    </div>
+</header>

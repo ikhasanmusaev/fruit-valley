@@ -1,0 +1,19 @@
+{% extends 'base_path.html' %}
+{% block content %}
+    <section class="page-blog">
+        <div class="container">
+
+            {% include 'blogs/_sidebar.html' %}
+
+            <div class="blog-container">
+
+                {% for article in article_list %}
+                    {% include 'blogs/_article_item.html' %}
+                {% endfor %}
+
+            {% include '_partials/_pagination.html' %}
+            </div>
+
+        </div>
+    </section>
+{% endblock %}

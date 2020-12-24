@@ -1,0 +1,238 @@
+{% extends 'base_path.html' %}
+{% load static i18n %}
+
+{% block content %}
+    <section class="container">
+        <div class="product-container">
+            <div class="product-img">
+                <img src="http://{{ request.get_host }}{{ product.image.file.url }}" alt="">
+                <a href="javascript:void(0);" class="add-favourite" onclick="add_to_favourite('{{ product.id }}')">
+                    <i class="far fa-heart"></i>
+                </a>
+            </div>
+            <div class="product-details">
+                <div class="switcher">
+                    <span class="retail">{% trans 'Retail' %}</span>
+                    <label for="check" class="con-switch">
+                        <input id="check" class="input" type="checkbox">
+                        <div class="circle"></div>
+                    </label>
+                    <span class="wholesale">{% trans 'Wholesale' %}</span>
+                </div>
+                <div class="product-title">
+                    <h2>{{ product.name }}</h2>
+                </div>
+                <div class="product-rating">
+                    <ul class="rating">
+                        {{ product.rating_stars|safe }}
+                    </ul>
+                    <p>{% trans 'Category' %}: <a
+                            href="{% url 'products:category-detail' product.category.slug %}">{{ product.category.name }}</a>
+                    </p>
+                </div>
+                <div class="product-info">
+                    {% if product.description %}
+                        <p>
+                            {{ product.description|capfirst }}<a href="#description">{% trans 'Read more' %} ></a>
+                        </p>
+
+                    {% endif %}
+                    {% if product.ingredients %}
+                        <p class="info">
+                            <span>{% trans 'Ingredients' %}: </span>
+                            {{ product.ingredients|capfirst }}
+                        </p>
+                    {% endif %}
+                    {% if product.product_from %}
+                        <p class="info">
+                            <span>{% trans 'Product of' %}: </span>
+                            {{ product.product_from|capfirst }}
+                        </p>
+                    {% endif %}
+                    {% if product.number_of_pieces %}
+                        <p class="info">
+                            <span>{% trans 'One bag contains about' %}: </span>
+                            {{ product.number_of_pieces }} pieces
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="product-add-cart retail">
+                <ul>
+                    <li>
+                        <input type="radio" id="f-option" name="selector">
+                        <label for="f-option">1lb Bag $9.99</label>
+
+                        <div class="check"></div>
+                    </li>
+
+                    <li>
+                        <input type="radio" id="s-option" name="selector">
+                        <label for="s-option">10lb Case $7.17 / lb</label>
+
+                        <div class="check">
+                            <div class="inside"></div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <input type="radio" id="t-option" name="selector">
+                        <label for="t-option">25lb Case $6.43 / lb</label>
+                        <div class="check">
+                            <div class="inside"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <input type="radio" id="i-option" name="selector">
+                        <label for="i-option">20oz Gift Tray $14.99</label>
+
+                        <div class="check">
+                            <div class="inside"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <input type="radio" id="k-option" name="selector">
+                        <label for="k-option">40oz Gift Tray $26.99</label>
+
+                        <div class="check">
+                            <div class="inside"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <input type="radio" id="m-option" name="selector">
+                        <label for="m-option">Sample $1.00</label>
+
+                        <div class="check">
+                            <div class="inside"></div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="cost">
+                    <div>
+                        <button class="minus"><i class="fas fa-minus"></i></button>
+                        <input type="text" placeholder="1" value="1">
+                        <button class="plus"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <span>$9.99</span>
+                </div>
+                <div class="link">
+                    <a href="javascript:void(0);" onclick="addToCart('{{ product.id }}')">Add card</a>
+                </div>
+            </div>
+            <div class="product-add-cart wholesale checked">
+                <ul>
+                    <li>
+                        <input type="radio" id="l-option" name="selector">
+                        <label for="l-option">25lb Case $4.66 / lb</label>
+
+                        <div class="check"></div>
+                    </li>
+                </ul>
+                <div class="add-cart-rules">
+                    <p>
+                        Wholesale prices are valid ONLY
+                        on orders totaling <span> 1000 lbs + </span>
+                        (single or multiple products).
+                    </p>
+                    <p>
+                        Price excludes freight, shipping is calculated during the checkout.
+                    </p>
+                    <p>
+                        Bulk boxes, not individual bags.
+                    </p>
+                </div>
+                <div class="cost">
+                    <div>
+                        <button class="minus"><i class="fas fa-minus"></i></button>
+                        <input type="text" placeholder="1" value="1">
+                        <button class="plus"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <span>$9.99</span>
+                </div>
+                <div class="link">
+                    <a href="#">Add card</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="description" id="description">
+        <div class="description-nav">
+            <ul>
+                {% if product.description %}
+                    <li>
+                        <button class="tablinks active"
+                                onclick="openTab(event, 'London')">{% trans 'description' %}</button>
+                    </li>
+                {% endif %}
+                {% if product.recipes %}
+                    <li>
+                        <button class="tablinks" onclick="openTab(event, 'Paris')">{% trans 'recipes' %}</button>
+                    </li>
+                {% endif %}
+                <li>
+                    <button class="tablinks" onclick="openTab(event, 'Tokyo')">{% trans 'Reviews' %}
+                        ({{ reviews|length }})
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div class="container">
+            <div id="London" class="tabcontent active">
+                {{ product.description|safe|capfirst }}
+            </div>
+
+            <div id="Paris" class="tabcontent">
+                {{ product.recipes|capfirst }}
+            </div>
+            <div id="Tokyo" class="tabcontent">
+                {% for review in reviews %}
+                    {{ review.text }} <br><br>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section class="similar-products">
+        <div class="container">
+            <h1 class="title">
+                {% trans 'You may also like' %}
+            </h1>
+            <div class="p-products">
+                {% for similar_product in similar_products %}
+                    {% include '_partials/_product_item.html' with product=similar_product %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'js/ajax-queries.js' %}"></script>
+    <script>
+        let favourite = {{ favorite|yesno:"true,false" }};
+        console.log(favourite)
+        if (favourite) {
+            $(`.add-favourite`).find('i').addClass('liked')
+        }
+        {% get_current_language as LANGUAGE_CODE %}
+
+        let addToCart = (product_id) => {
+            $.ajax({
+                type: 'POST',
+                url: '/{{ LANGUAGE_CODE }}/orders/cart/',
+                dataType: 'json',
+                data: {
+                    product_id: product_id,
+                    csrfmiddlewaretoken: csrf_token,
+                    type_of_selling: 'qty', // weight or qty
+                    total: '1', // weight or qty
+                    amount: '1',
+                },
+                success: (response) => {
+
+                }
+            })
+        }
+
+    </script>
+{% endblock %}

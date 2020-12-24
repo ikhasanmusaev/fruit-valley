@@ -1,0 +1,16 @@
+{% extends 'base_path.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="page-contact">
+        <div class="container">
+            {% include '_partials/_contact.html' %}
+            {% include '_partials/_map.html' %}
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'js/ajax-queries.js' %}"></script>
+{% endblock %}

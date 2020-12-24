@@ -1,0 +1,15 @@
+{% load static %}
+<div class="categories-conatiner">
+    {% for category in category_list %}
+        <div class="category">
+            <div class="box-overlay">
+
+            </div>
+            <img src="{% static 'images/nut1.jpg' %}" alt="">
+            <h3>{{ category.name }}</h3>
+            <a href="{% url 'products:category-detail' category.slug %}" class="link">View <i
+                    class="fas fa-chevron-right"></i></a>
+        </div>
+
+    {% endfor %}
+</div>

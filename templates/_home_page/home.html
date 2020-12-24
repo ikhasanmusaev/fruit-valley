@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block content %}
+    <div class="body">
+        <section class="top-slider">
+            <div class="product-carousel owl-theme owl-carousel">
+                {% for slide_item in slide_of_product_list %}
+                    {% include '_home_page/_slide_item.html' %}
+                {% endfor %}
+            </div>
+        </section>
+        <section class="products">
+            {% include '_partials/_product_list.html' %}
+        </section>
+        <section class="about-us">
+            <div class="container">
+                <h1 class="title">
+                    {% trans 'About us' %}
+                </h1>
+                <p>
+                    {% trans 'Dried fruit is fruit from which the majority of the original water content has been removed either naturally, through sun drying, or through the use of specialized dryers or dehydrators. Dried fruit has a long tradition of use dating back to the fourth millennium BC in Mesopotamia, and is prized because of its sweet taste, nutritive value, and long shelf life.' %}
+                </p>
+            </div>
+        </section>
+        <section class="blog">
+            <h1 class="title">{% trans 'Our Blog' %}</h1>
+            <div class="container">
+
+                <div class="blog-carousel owl-theme owl-carousel">
+                    {% for article in articles %}
+                        {% include '_home_page/_blog_item.html' %}
+                    {% endfor %}
+
+                </div>
+            </div>
+        </section>
+        <section class="testimonials">
+            <h1 class="title">{% trans 'Testimonials' %}</h1>
+            <div><img src="{% static '/images/xz.png' %}" alt=""></div>
+            {% include '_home_page/testimonials.html' %}
+        </section>
+        {% include '_partials/_contact.html' %}
+
+        {% include '_partials/_map.html' %}
+    </div>
+    <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+{% endblock %}
+{% block script %}
+    <script src="{% static 'js/ajax-queries.js' %}"></script>
+    <script>
+        let favourites = {{ favourites }};
+        favourites.forEach((element) => {
+            $(`#product-${element}`).find('.add-favourite i').addClass('liked')
+        })
+
+        let submitForm = () => {
+
+        }
+
+    </script>
+{% endblock %}

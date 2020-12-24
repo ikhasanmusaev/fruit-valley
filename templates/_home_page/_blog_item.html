@@ -1,0 +1,18 @@
+<div class="item">
+    <div class="blog-img">
+        <img src="http://{{ request.get_host }}{{ article.content_image.url }}" alt="">
+    </div>
+    <div class="info">
+        <p>
+            <span class="b-title"><a href="{% url 'blogs:article-detail' article.slug %}">{{ article.title }}</a></span>
+        </p>
+        <h3>
+            <span class="b-description">{{ article.snippet }}</span>
+        </h3>
+    </div>
+    <div class="link">
+        <a href="{% url 'blogs:article-detail' article.slug %}">
+            Read More <i class="fas fa-long-arrow-alt-right"></i>
+        </a>
+    </div>
+</div>

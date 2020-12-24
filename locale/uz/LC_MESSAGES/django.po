@@ -1,0 +1,137 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-23 15:26+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: templates/_home_page/home.html:19 templates/_partials/footer.html:11
+#: templates/_partials/header.html:67
+msgid "About us"
+msgstr "Biz haqqimizda"
+
+msgid "About"
+msgstr "Biz haqqimizda"
+
+#: templates/_home_page/home.html:22
+msgid ""
+"Dried fruit is fruit from which the majority of the original water content "
+"has been removed either naturally, through sun drying, or through the use of "
+"specialized dryers or dehydrators. Dried fruit has a long tradition of use "
+"dating back to the fourth millennium BC in Mesopotamia, and is prized "
+"because of its sweet taste, nutritive value, and long shelf life."
+msgstr ""
+"Quritilgan meva-asl suv tarkibidagi ko'pchilik meva "
+"tabiiy ravishda, quyosh quritish orqali yoki undan foydalanish orqali olib tashlandi "
+"maxsus dryers yoki dehydrators. Quritilgan meva foydalanish uzoq odati bor "
+"Mesopotamiyada miloddan avvalgi to'rtinchi ming yillikka oid va maqtanchoq "
+"chunki uning shirin ta'mi, oziqlanish qiymati,va uzoq raf muddati."
+
+#: templates/_home_page/home.html:27
+msgid "Our Blog"
+msgstr "Bizning Blog"
+
+#: templates/_home_page/home.html:39
+msgid "Testimonials"
+msgstr "Fikrlar"
+
+#: templates/_partials/_contact.html:5 templates/_partials/footer.html:13
+#: templates/_partials/header.html:69
+msgid "Contact us"
+msgstr "Biz bilan bog'lanish"
+
+msgid "Contacts"
+msgstr "Kontaktlar"
+
+#: templates/_partials/_contact.html:40
+msgid "Send message"
+msgstr "Xabar jo'natish"
+
+#: templates/_partials/footer.html:9 templates/_partials/header.html:65
+msgid "Home"
+msgstr "Bosh sahifa"
+
+#: templates/_partials/footer.html:10 templates/_partials/header.html:66
+msgid "Categories"
+msgstr "Kategoriyalar"
+
+#: templates/_partials/footer.html:12 templates/_partials/header.html:68
+msgid "Blog"
+msgstr "Blog"
+
+#: templates/_partials/footer.html:21
+msgid "FAQ"
+msgstr "FAQ"
+
+#: templates/_partials/footer.html:22
+msgid "Returns"
+msgstr "Qaytarish"
+
+#: templates/_partials/footer.html:23
+msgid "Shipping"
+msgstr "Yetkazib berish"
+
+#: templates/_partials/footer.html:24
+msgid "Privacy"
+msgstr "Maxfiylik"
+
+#: templates/_partials/footer.html:25
+msgid "Terms of Services"
+msgstr "Xizmat ko'rsatish shartlari"
+
+#: templates/_product_page/product_detail.html:15
+msgid "Retail"
+msgstr "Chakana"
+
+#: templates/_product_page/product_detail.html:20
+msgid "Wholesale"
+msgstr "Ulgurji"
+
+#: templates/_product_page/product_detail.html:29
+msgid "Category"
+msgstr "Kategoriya"
+
+#: templates/_product_page/product_detail.html:36
+msgid "Read more"
+msgstr "Ko'proq o'qish"
+
+#: templates/_product_page/product_detail.html:42
+msgid "Ingredients"
+msgstr "Tarkibi"
+
+#: templates/_product_page/product_detail.html:48
+msgid "Product of"
+msgstr "Mahsulot ..dan"
+
+#: templates/_product_page/product_detail.html:54
+msgid "One bag contains about"
+msgstr "Bitta sumkada taxminan"
+
+#: templates/_product_page/product_detail.html:163
+msgid "description"
+msgstr "tavsif"
+
+#: templates/_product_page/product_detail.html:168
+msgid "recipes"
+msgstr "retseptar"
+
+#: templates/_product_page/product_detail.html:172
+msgid "Reviews"
+msgstr "Fikrlar"
+
+#: templates/_product_page/product_detail.html:194
+msgid "You may also like"
+msgstr "Sizga ham yoqishi mumkin"

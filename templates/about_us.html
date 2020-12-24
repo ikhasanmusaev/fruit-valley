@@ -1,0 +1,30 @@
+{% extends 'base_path.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="page-about">
+        <div class="container">
+            <div class="about-top">
+                <div class="top-text">
+                    <h1>We Are 100% Trustable And Provide <br> <span>Fast Delivery</span></h1>
+                    <p>
+                        Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+                        consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
+                        qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam
+                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+                        voluptatum.
+                    </p>
+                    <a href="#">Get in touch</a>
+                </div>
+                <div class="top-image">
+                    <img src="{% static 'images/blog1.jpg' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="testimonials">
+        <h1 class="title">Testimonials</h1>
+        <div><img src="{% static '/images/xz.png' %}" alt=""></div>
+        {% include '_home_page/testimonials.html' %}
+    </section>
+{% endblock %}

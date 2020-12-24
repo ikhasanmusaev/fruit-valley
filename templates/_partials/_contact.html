@@ -1,0 +1,44 @@
+{% load i18n %}
+
+<section class="contact-us">
+    <h1 class="title">
+        {% trans 'Contact us' %}
+    </h1>
+    <div class="container">
+        <div class="contact-info">
+            <div class="info">
+                <i class="fas fa-phone-alt"></i>
+                <p>Call Us <br>
+                    <span>+998 71 241 40 48</span>
+                </p>
+            </div>
+            <div class="info">
+                <i class="fas fa-envelope"></i>
+                <p>General Enquires<br>
+                    <span> contact@fruitvalley.com</span>
+                </p>
+            </div>
+            <div class="info">
+                <i class="fas fa-map-marker-alt"></i>
+                <p>Our Office Address <br>
+                    <span> 2972 Westheimer Rd. Santa Ana, Illinois 85486 </span>
+                </p>
+            </div>
+            <div class="info">
+                <i class="far fa-clock"></i>
+                <p>Our Working Hours <br>
+                    <span> Mon - Sat : 09:00 AM - 09:00 PM</span>
+                </p>
+            </div>
+        </div>
+        <div class="contact-form">
+            <form action="javascript:void(0);" class="send-mail">
+                <input type="text" placeholder="Full name" name="full_name" required>
+                <input type="email" placeholder="Email" name="email" required>
+                <input type="tel" placeholder="Phone number" name="phone" required>
+                <textarea name="content" cols="30" rows="10" placeholder="Leave us your message" required></textarea>
+                <button type="submit">{% trans 'Send message' %}</button>
+            </form>
+        </div>
+    </div>
+</section>

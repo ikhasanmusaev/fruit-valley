@@ -1,0 +1,24 @@
+{% extends 'base_path.html' %}
+{% block content %}
+    <section class="page-blog">
+        <div class="container">
+
+            {% include 'blogs/_sidebar.html' %}
+            <div class="blog-details">
+                <div class="blog-top-image">
+                    <img src="http://{{ request.get_host }}{{ article.content_image.url }}" alt="">
+                </div>
+                <div class="flex">
+                    <a href="{% url 'blogs:category-detail' article.category.slug %}">{{ article.category.name }}</a>
+                    <span>{{ article.created_date|date:'M d.Y' }}</span>
+                </div>
+                <h2 class="blog-title">
+                    {{ article.title|capfirst }}
+                </h2>
+                <div class="blog-body">
+                    {{ article.body|safe|capfirst }}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

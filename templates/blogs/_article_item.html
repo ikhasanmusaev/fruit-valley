@@ -1,0 +1,11 @@
+<div class="blog">
+    <div class="blog-img">
+        <img src='http://{{ request.get_host }}{{ article.content_image.url }}' alt="">
+    </div>
+    <div class="blog-text">
+        <h3><a href="{% url 'blogs:category-detail' article.category.slug %}">{{ article.category.name }}</a></h3>
+        <h2><a href="{% url 'blogs:article-detail' article.slug %}">{{ article.title|capfirst }}</a></h2>
+        <p>{{ article.snippet }}</p>
+        <span>{{ article.created_date|date:'M d.Y' }}</span>
+    </div>
+</div>

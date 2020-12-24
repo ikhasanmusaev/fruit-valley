@@ -1,0 +1,50 @@
+<div class="blog-sidebar">
+    <form class="search">
+        <input type="text" placeholder="Search this site...">
+        <button><i class="fas fa-search"></i></button>
+    </form>
+    <div class="sidebar-categories">
+        <div class="sidebar-title">
+            Categories
+        </div>
+        <ul>
+            {% for category in category_list %}
+                <li {% if category.slug|lower == request.resolver_match.kwargs.slug|lower %}
+                           class="active"{% endif %}><a href="{% url 'blogs:category-detail' category.slug %}">{{ category.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="sidebar-recent">
+        <div class="sidebar-title">
+            Recent Posts
+        </div>
+        <ul>
+            {% for post_1 in recent_posts %}
+                <li>
+                    <div class="img">
+                        <img src="http://{{ request.get_host }}{{ post_1.content_image.url }}" alt="">
+                        <span>{{ forloop.counter }}</span>
+                    </div>
+                    <div class="text">
+                        <p class="category">
+                            <a href="{% url 'blogs:category-detail' post_1.category.slug %}">{{ post_1.category.name }}</a>
+                        </p>
+                        <p class="recent-title">
+                            <a href="{% url 'blogs:article-detail' post_1.slug %}">{{ post_1.title }}</a>
+                        </p>
+                        <p class="date">
+                            {{ post_1.created_date|date:'M d.Y' }}
+                        </p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="archives">
+        <div class="sidebar-title">
+            archives
+        </div>
+        <p><a href="#">May 2020</a></p>
+        <p><a href="#">April 2019</a></p>
+    </div>
+</div>

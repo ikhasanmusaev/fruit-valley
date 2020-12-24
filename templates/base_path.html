@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load path i18n %}
+
+{% block content_root %}
+    <section class="top-banner">
+        {% if product_list and category_list %}
+            <h1>{{ category.name }}</h1>
+        {% elif product %}
+            <h1>{{ product.name }}</h1>
+        {% else %}
+            <h1>{% get_title request.get_full_path %}</h1>
+        {% endif %}
+        <ul>
+            <li><a href="{% url 'products:index-page' %}">{% trans 'Home' %}</a></li>
+
+            {% if product and similar_products %}
+                /
+                <li><a href="{% url 'products:category-list' %}">{% trans 'Categories' %}</a></li>
+                /
+                <li><a href="{% url 'products:category-detail' product.category.slug %}">{{ product.category.name }}</a></li>
+                /
+                <li><a href="{% url 'products:product-detail' product.id %}" class="active">{{ product.name }}</a></li>
+            {% else %}
+                {% get_path request.get_full_path as path %}
+                {{ path|safe }}
+            {% endif %}
+
+        </ul>
+    </section>
+    {% block content %}
+    {% endblock %}
+    <div class="questions">
+        <div class="container">
+            <div>
+                <h1>Subscribe to newsletter</h1>
+                <p>
+                    We'll help you to grow your career and growth
+                </p>
+            </div>
+            <div class="ask-input">
+                <input type="text" placeholder="Ask here...">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+    </div>
+{% endblock %}
