@@ -1,59 +1,84 @@
-from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.views import View
 from django.http import HttpResponse
-from django.shortcuts import render
-from .forms import SignupForm
+from django.shortcuts import render, redirect
+from .forms import SignupForm, LoginForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+
+from .models import User
 from .tokens import account_activation_token
 from django.core.mail import EmailMessage
-from django.contrib.auth import login, update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import login, update_session_auth_hash, logout
+from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm, AuthenticationForm
+
+
+def logout_view(request):
+    logout(request)
+    print(123)
+    return redirect('products:index-page')
 
 
 class Signup(View):
     def get(self, request):
-        form = SignupForm()
-        return render(request, 'signup.html', {'form': form})
+        signup_form = SignupForm()
+        login_form = LoginForm()
+        return render(request, 'accounts/login.html', {'sign_form': signup_form, 'login_form': login_form})
 
     def post(self, request):
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active = False
-            user.save()
-            current_site = get_current_site(request)
-            mail_subject = 'Activate your blog account.'
-            message = render_to_string('acc_active_email.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
-            })
-            to_email = form.cleaned_data.get('email')
-            email = EmailMessage(
-                mail_subject, message, to=[to_email]
-            )
-            email.send()
-            return HttpResponse('Please confirm your email address to complete the registration')
+        if 'signup_' in request.POST:
+            form = SignupForm(request.POST)
+            if form.is_valid():
+                user = form.save(commit=False)
+                user.is_active = False
+                user.save()
+                current_site = get_current_site(request)
+                mail_subject = 'Activate your blog account.'
+                message = render_to_string('acc_active_email.html', {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': account_activation_token.make_token(user),
+                })
+                to_email = form.cleaned_data.get('email')
+                email = EmailMessage(
+                    mail_subject, message, to=[to_email]
+                )
+                email.send()
+                return HttpResponse('Please confirm your email address to complete the registration')
+        if 'signin_' in request.POST:
+            form = LoginForm(data=request.POST)
+            if form.is_valid():
+                user = form.get_user()
+                login(request, user, backend='buyers.backends.EmailBackend')
+                if 'next' in request.POST:
+                    return redirect(request.POST.get('next'))
+                else:
+                    return redirect('products:index-page')
+        return redirect('products:index-page')
 
 
 class Activate(View):
-    def get(self, request, uid, token):
+    def get(self, request, uid, token, backend='buyers.backends.EmailBackend'):
         try:
             uid = force_text(urlsafe_base64_decode(uid))
+            print(uid)
             user = User.objects.get(pk=uid)
+            print(123)
         except(TypeError, ValueError, OverflowError, User.DoesNotExist):
             user = None
+            print(1234)
+
         if user is not None and account_activation_token.check_token(user, token):
+            print(1236)
             # activate user and login:
             user.is_active = True
             user.save()
-            login(request, user)
+            login(request, user, backend='buyers.backends.EmailBackend')
 
             form = PasswordChangeForm(request.user)
+            # return render(request, '_home_page/home.html')
             return render(request, 'activation.html', {'form': form, 'uid': uid, 'token': token})
 
         else:
@@ -64,4 +89,4 @@ class Activate(View):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
-            return HttpResponse('Password changed successfully')
+            return redirect('products:index-page')

@@ -1,6 +1,6 @@
-from django.contrib.auth.models import User
 from django.db import models
 
+from buyers.models import User
 from products.models import Product
 
 
@@ -31,6 +31,14 @@ class Cart(models.Model):
     type_of_selling = models.CharField(choices=TypeOfSelling.choices, blank=True, max_length=15)  # weight or wty
     total = models.PositiveSmallIntegerField(blank=True, null=True)  # weight or wty
     date_of_creat = models.DateTimeField(auto_now_add=True)
+    amount = models.CharField(max_length=31, default=0)
+
+    def total_of_cart(self, buyer_id):
+        carts = self.objects.filter(buyer_id=buyer_id)
+        total = 0
+        for i in carts:
+            total += float(i.amount)
+        return total
 
 
 class PaymentMethods(models.Model):
