@@ -22,7 +22,7 @@
                             <div class="cart-img"><img src="http://{{ request.get_host }}{{ favouriteproduct.product.image.file.url }}"
                                                        alt=""></div>
                         </td>
-                        <td><a class="product-name" href="#">{{ favouriteproduct.product.name }}</a></td>
+                        <td><a class="product-name" href="{% url 'products:product-detail' favouriteproduct.product.id %}">{{ favouriteproduct.product.name }}</a></td>
                         <td class="product-price">{{ favouriteproduct.product.price_for_qty }}</td>
                         <td class="in-stock">
                             {% if favouriteproduct.product.status %}
@@ -31,7 +31,7 @@
                                 <p>Out of stock</p>
                             {% endif %}
                         </td>
-                        <td class="wishlist-add-cart"><a href="#">Add to cart</a></td>
+                        <td class="wishlist-add-cart"><a href="{% url 'products:product-detail' favouriteproduct.product.id %}">Add to cart</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>

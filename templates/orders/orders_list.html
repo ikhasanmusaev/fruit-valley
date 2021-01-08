@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="page-account">
+        <div class="container">
+            <ul class="page-account-menu">
+                <li>
+                    <a href="{% url 'buyers:account' %}" class="tablinks">Billing details
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'buyers:account-details' %}" class="tablinks">Account details
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'orders:orders-list' %}" class="tablinks active">Orders</a>
+                </li>
+            </ul>
+            <div class="account-container">
+                <div id="orders" class="tabcontent active">
+                    <table>
+                        <thead>
+                        <th></th>
+                        <th>Order Details</th>
+                        <th>Order Date</th>
+                        <th>TOTAL</th>
+                        </thead>
+                        <tbody>
+                        {% for order in order_list %}
+                            <tr>
+                                <td><a href="#"><i class="far fa-times-circle"></i></a></td>
+                                <td class="table-order-details">
+                                    <ul>
+                                        {% for product in order.products %}
+                                            <li>
+                                                <a href="{% url 'products:product-detail' product.product_id %}">{{ product.name }}</a> <span>${{ product.price }}</span>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td class="order-date">{{ order.date_of_creat|date:'d/m/Y' }}</td>
+                                <td class="order-total">${{ order.price }}</td>
+                            </tr>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

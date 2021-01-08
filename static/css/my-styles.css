@@ -1,0 +1,42 @@
+.liked {
+  color: red;
+}
+
+.over-over:hover {
+  cursor: pointer;
+}
+
+.dropdown .dropbtn {
+  font-family: inherit;
+  margin: 0;
+}
+
+.dropbtn:hover {
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: white;
+  box-shadow: 0 1px 22px -11px #000000;
+  border-radius: 10px;
+  z-index: 1;
+  -webkit-transition: opacity .3s ease-in;
+  -moz-transition: opacity .3s ease-in;
+  -o-transition: opacity .3s ease-in;
+  transition: opacity .3s ease-in;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 14px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.show {
+  display: block;
+  z-index: 11;
+}

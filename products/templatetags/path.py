@@ -19,9 +19,7 @@ def join_with_slash(path):
 
 @register.simple_tag
 def get_path(url):
-    print(url)
     url = url.split('/')[2:]
-    print(url)
     path = []
     for i in url:
         path.append(['/' + i, i])

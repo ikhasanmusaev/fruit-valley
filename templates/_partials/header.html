@@ -35,14 +35,18 @@
                         <span>{% trans "Register" %}</span>
                     </a>
                 {% else %}
-                    <a href="{% url 'buyers:logout_view' %}" class="login">
-                        <i class="fas fa-user"></i>
-                        <span>Logout</span>
-                    </a>
+                    <div class="dropdown">
+                        <div class="dropbtn" onclick="myFunction()"><i class="fas fa-caret-down"></i>Account</div>
+                        <div class="dropdown-content" id="myDropdown">
+                            <a href="{% url 'buyers:account' %}"><i class="fas fa-user"></i>Profile</a>
+                            <a href="{% url 'orders:orders-list' %}"><i class="fas fa-stream"></i>My orders</a>
+                            <a href="{% url 'products:favourite-list' %}"><i class="fas fa-star"></i>Liked products</a>
+                            <a href="{% url 'buyers:logout_view' %}"><i class="fas fa-sign-out-alt"></i>Log out</a>
+                        </div>
+                    </div>
                 {% endif %}
             </div>
         </div>
-
     </div>
     <div class="container middle-header flex">
         <div class="logo">
@@ -61,6 +65,43 @@
                 <span class="item">{% cart_length request.user.id %} item - </span>
                 <span class="cost">${% cart_sum request.user.id %}</span>
             </a>
+            <div class="cart-modal" style="z-index: 30">
+                <div class="cart-modal-products">
+                    <ul class="cart-modal-product" style="width: 100%; height: 300px; overflow: auto;">
+                        {% carts request.user.id as carts %}
+                        {% for cart in carts %}
+                            <li class="flex">
+                                <div class="flex">
+                                    <div class="cart-modal-img">
+                                        <img src="http://{{ request.get_host }}{{ cart.image }}" alt="">
+                                    </div>
+                                    <div>
+                                        <h6>{{ cart.name }}</h6>
+                                        <ul class="rating">
+                                            {{ cart.stars|safe }}
+                                            {#                                            <li><i class="fas fa-star"></i></li>#}
+                                            {#                                            <li><i class="fas fa-star"></i></li>#}
+                                            {#                                            <li><i class="fas fa-star"></i></li>#}
+                                            {#                                            <li><i class="fas fa-star"></i></li>#}
+                                            {#                                            <li><i class="far fa-star"></i></li>#}
+                                        </ul>
+                                        <p>x{{ cart.total }} <span> ${{ cart.amount }}</span></p>
+                                    </div>
+                                </div>
+                                {#                                <a href="#"><i class="far fa-times-circle"></i></a>#}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <h2 class="flex">
+                        <span>Total:</span>
+                        <span>${% cart_sum request.user.id %}</span>
+                    </h2>
+                    <div class="cart-modal-buttons">
+                        <a href="{% url 'orders:cart-list' %}">View cart</a>
+                        <a href="{% url 'orders:order-checkout' %}">Checkout</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="bottom-header">

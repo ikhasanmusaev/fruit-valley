@@ -10,26 +10,26 @@ class TypeOfSelling(models.TextChoices):
 
 
 class Order(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     buyer = models.ForeignKey(User, on_delete=models.CASCADE)
     price = models.PositiveSmallIntegerField()
-    qty = models.PositiveSmallIntegerField(default=1)
-    type_of_selling = models.CharField(choices=TypeOfSelling.choices, blank=True, max_length=15)  # weight or wty
-    total = models.PositiveSmallIntegerField()  # weight or wty
+    # qty = models.PositiveSmallIntegerField(default=1)
+    products = models.JSONField(null=True, blank=True)
+    # type_of_selling = models.CharField(choices=TypeOfSelling.choices, blank=True, max_length=15)  # weight or wty
+    # total = models.PositiveSmallIntegerField()  # weight or wty
     method_payment = models.ForeignKey('PaymentMethods', on_delete=models.CASCADE)
     date_of_creat = models.DateTimeField(auto_now_add=True)
     date_of_delivery = models.DateTimeField(blank=True, null=True)
     date_of_cancel = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return "{} [{}]".format(self.product, self.id)
+        return "{}".format(self.id)
 
 
 class Cart(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     buyer = models.ForeignKey(User, on_delete=models.CASCADE)
-    type_of_selling = models.CharField(choices=TypeOfSelling.choices, blank=True, max_length=15)  # weight or wty
-    total = models.PositiveSmallIntegerField(blank=True, null=True)  # weight or wty
+    type_of_selling = models.CharField(choices=TypeOfSelling.choices, blank=True, max_length=15)  # weight or qty
+    total = models.PositiveSmallIntegerField(blank=True, null=True)  # weight or qty
     date_of_creat = models.DateTimeField(auto_now_add=True)
     amount = models.CharField(max_length=31, default=0)
 

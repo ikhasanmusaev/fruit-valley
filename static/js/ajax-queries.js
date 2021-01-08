@@ -74,10 +74,10 @@ function by_category(id) {
     });
 }
 
-function add_to_favourite(product_id) {
+function add_to_favourite(product_id, lan_code) {
     $.ajax({
         type: "POST",
-        url: `/add_to_favorite`,
+        url: `/${lan_code}/add_to_favorite`,
         data: {
             product_id: product_id,
             csrfmiddlewaretoken: csrf_token
@@ -170,21 +170,3 @@ send_form.submit((event) => {
         }
     })
 })
-
-let addToCart = (product_id) => {
-    $.ajax({
-        type: 'POST',
-        url: '/orders/cart/',
-        dataType: 'json',
-        data: {
-            product_id: product_id,
-            csrfmiddlewaretoken: csrf_token,
-            type_of_selling: 'qty', // weight or qty
-            total: '1', // weight or qty
-            amount: '1',
-        },
-        success: (response) => {
-
-        }
-    })
-}

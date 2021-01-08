@@ -7,7 +7,7 @@
             <span class="b-title"><a href="{% url 'blogs:article-detail' article.slug %}">{{ article.title }}</a></span>
         </p>
         <h3>
-            <span class="b-description">{{ article.snippet }}</span>
+            <span class="b-description">{{ article.snippet|striptags }}</span>
         </h3>
     </div>
     <div class="link">

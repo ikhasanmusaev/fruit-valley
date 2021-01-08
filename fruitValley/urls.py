@@ -12,7 +12,7 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += i18n_patterns(
-    path('buyers/', include('buyers.urls')),
+    path('account/', include('buyers.urls')),
     path('orders/', include('orders.urls')),
     path('blog/', include('blogs.urls')),
     path('', include('products.urls')),

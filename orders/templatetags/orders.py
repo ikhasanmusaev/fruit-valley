@@ -19,3 +19,21 @@ def cart(buyer_id):
 @register.simple_tag
 def cart_length(buyer_id):
     return len(Cart.objects.filter(buyer_id=buyer_id))
+
+
+@register.simple_tag
+def carts(buyer_id):
+    obj = Cart.objects.filter(buyer_id=buyer_id)
+    cart_list = []
+
+    for i in obj:
+        print(i.product.rating_stars)
+        cart_list.append({
+            'name': i.product.name,
+            'image': i.product.image.file.url,
+            'stars': i.product.rating_stars,
+            'total': i.total,
+            'amount': i.amount,
+        })
+
+    return cart_list

@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="page-account">
+        <div class="container">
+            <ul class="page-account-menu">
+                <li>
+                    <a href="{% url 'buyers:account' %}" class="tablinks active">Billing details
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'buyers:account-details' %}" class="tablinks">Account details
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'orders:orders-list' %}" class="tablinks">Orders</a>
+                </li>
+            </ul>
+            <div class="account-container">
+                <div id="billing-details" class="tabcontent active">
+                    <div class="billing">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="billing">
+                                <h1 class="billing-title">
+                                    Billing details
+                                </h1>
+
+                                <div class="grid">
+                                    <div>
+                                        <label for="name">Your Name *</label>
+                                        <input type="text" id="name" placeholder="Name" name="name"
+                                               value="{{ buyer.full_name }}" required>
+                                    </div>
+                                    <div>
+                                        <label for="email">Your Email *</label>
+                                        <input type="email" id="email" placeholder="Email" name="email"
+                                               value="{{ buyer.add_email }}" required>
+                                    </div>
+                                </div>
+
+                                <label for="company">Company Name</label>
+                                <input type="text" id="company" placeholder="Company Name" name="company"
+                                       value="{% if buyer.company %} {{ buyer.company }}{% endif %}">
+
+
+                                <label for="country">Country *</label>
+                                <select name="country" id="country" required>
+                                    <option value="uk">United Kingdom (UK)</option>
+                                    <option value="uz">Uzbekistan (UZ)</option>
+                                    <option value="uk">USA (US)</option>
+                                    <option value="uk">United Kingdom (UK)</option>
+                                </select>
+
+                                <label for="address1">Address Line 1*</label>
+                                <input type="text" id="address1" placeholder="Address" name="address1"
+                                       value="{{ address.address_line1 }}" required>
+
+                                <label for="address2">Address Line 2*</label>
+                                <input type="text" id="address2" placeholder="Address" name="address2"
+                                       value="{{ address.address_line2 }}" required>
+
+                                <label for="town">Town/City *</label>
+                                <input type="text" id="town" placeholder="Town/City" name="city"
+                                       value="{{ address.city }}" required>
+
+                                <div class="grid">
+                                    <div>
+                                        <label for="postcode">Postcode/Zip *</label>
+                                        <input type="text" id="postcode" placeholder="Postcode/Zip *" name="zip_code"
+                                               value="{{ address.zip }}" required>
+                                    </div>
+                                    <div>
+                                        <label for="phone">Phone *</label>
+                                        <input type="tel" id="phone" placeholder="Phone *" name="phone"
+                                               value="{{ buyer.phone }}" required>
+                                    </div>
+                                </div>
+
+                                <label for="additional">Additional Information</label>
+                                <textarea id="additional" placeholder="Additional Information"
+                                          name="add-info">{{ buyer.add_info }}</textarea>
+                            </div>
+                            <button class="add-order">
+                                Save
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div id="account-details" class="tabcontent">
+                    <div class="billing">
+                        <h1 class="billing-title">
+                            Edit Password
+                        </h1>
+
+                        <form action="" method="POST">
+                            <div class="grid">
+                                <div>
+                                    <label for="pass">Password</label>
+                                    <input type="password" id="pass" placeholder="Password">
+                                </div>
+                                <div>
+                                    <label for="re-pass">Repeat password</label>
+                                    <input type="password" id="re-pass" placeholder="Repeat password">
+                                </div>
+                            </div>
+                            <button class="add-order">
+                                Save
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

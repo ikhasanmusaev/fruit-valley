@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-23 15:26+0500\n"
+"POT-Creation-Date: 2020-12-28 11:17+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,11 +21,8 @@ msgstr ""
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: templates/_home_page/home.html:19 templates/_partials/footer.html:11
-#: templates/_partials/header.html:67
+#: templates/_partials/header.html:71
 msgid "About us"
-msgstr "О нас"
-
-msgid "About"
 msgstr "О нас"
 
 #: templates/_home_page/home.html:22
@@ -35,12 +32,13 @@ msgid ""
 "specialized dryers or dehydrators. Dried fruit has a long tradition of use "
 "dating back to the fourth millennium BC in Mesopotamia, and is prized "
 "because of its sweet taste, nutritive value, and long shelf life."
-msgstr "Сухофрукты - это фрукты, из которых большая часть первоначального"
-"содержания воды была удалена естественным путем, путем сушки на"
-"солнце или с помощью специальных сушилок или дегидраторов. "
-"Сухофрукты имеют давнюю традицию использования, восходящую к "
-"четвертому тысячелетию до нашей эры в Месопотамии, и ценятся из-за "
-"своего сладкого вкуса, питательной ценности и длительного срока хранения."
+msgstr ""
+"Сухофрукты - это фрукты, из которых большая часть первоначальногосодержания "
+"воды была удалена естественным путем, путем сушки насолнце или с помощью "
+"специальных сушилок или дегидраторов. Сухофрукты имеют давнюю традицию "
+"использования, восходящую к четвертому тысячелетию до нашей эры в "
+"Месопотамии, и ценятся из-за своего сладкого вкуса, питательной ценности и "
+"длительного срока хранения."
 
 #: templates/_home_page/home.html:27
 msgid "Our Blog"
@@ -51,26 +49,27 @@ msgid "Testimonials"
 msgstr "Рекомендации"
 
 #: templates/_partials/_contact.html:5 templates/_partials/footer.html:13
-#: templates/_partials/header.html:69
+#: templates/_partials/header.html:73
 msgid "Contact us"
 msgstr "Связаться с нами"
-
-msgid "Contacts"
-msgstr "Контакты"
 
 #: templates/_partials/_contact.html:40
 msgid "Send message"
 msgstr "Отправить сообщение"
 
-#: templates/_partials/footer.html:9 templates/_partials/header.html:65
+#: templates/_partials/footer.html:9 templates/_partials/header.html:69
+#: templates/base_path.html:14
+#: venv/modeltranslation/templates/admin/modeltranslation/app_index.html:9
+#: venv/modeltranslation/templates/modeltranslation/admin/admin.html:25
 msgid "Home"
 msgstr "Главная страница"
 
-#: templates/_partials/footer.html:10 templates/_partials/header.html:66
+#: templates/_partials/footer.html:10 templates/_partials/header.html:70
+#: templates/base_path.html:18
 msgid "Categories"
 msgstr "Категории"
 
-#: templates/_partials/footer.html:12 templates/_partials/header.html:68
+#: templates/_partials/footer.html:12 templates/_partials/header.html:72
 msgid "Blog"
 msgstr "Блог"
 
@@ -93,6 +92,14 @@ msgstr "Конфиденциальность"
 #: templates/_partials/footer.html:25
 msgid "Terms of Services"
 msgstr "Условия предоставления услуг"
+
+#: templates/_partials/header.html:34
+msgid "Login"
+msgstr ""
+
+#: templates/_partials/header.html:35
+msgid "Register"
+msgstr ""
 
 #: templates/_product_page/product_detail.html:15
 msgid "Retail"
@@ -122,19 +129,133 @@ msgstr "Продукт от"
 msgid "One bag contains about"
 msgstr "Одна сумка содержит около"
 
-#: templates/_product_page/product_detail.html:163
+#: templates/_product_page/product_detail.html:164
 msgid "description"
 msgstr "описание"
 
-#: templates/_product_page/product_detail.html:168
+#: templates/_product_page/product_detail.html:169
 msgid "recipes"
 msgstr "рецепты"
 
-#: templates/_product_page/product_detail.html:172
+#: templates/_product_page/product_detail.html:173
 msgid "Reviews"
 msgstr "Отзывы"
 
-#: templates/_product_page/product_detail.html:194
+#: templates/_product_page/product_detail.html:197
 msgid "You may also like"
 msgstr "Вам также может понравиться"
 
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:5
+msgid "Select an image to embed"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:27
+msgid "Browse for the image you want, then click 'Embed Image' to continue..."
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:29
+msgid ""
+"No images found. Upload images using the 'Image Button' dialog's 'Upload' "
+"tab."
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:50
+msgid "Images in: "
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:62
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:80
+msgid "Embed Image"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:146
+msgid "Play Slideshow"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:147
+msgid "Pause Slideshow"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:148
+msgid "&lsaquo; Previous Photo"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:149
+msgid "Next Photo &rsaquo;"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:150
+msgid "Next &rsaquo;"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:151
+msgid "&lsaquo; Prev"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:7
+msgid "Django: the Web framework for perfectionists with deadlines."
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:346
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:368
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:369
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener"
+"\">DEBUG=True</a> is in your settings file and you have not configured any "
+"URLs."
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:384
+msgid "Django Documentation"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:385
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:396
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:397
+msgid "Get started with Django"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:408
+msgid "Django Community"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:409
+msgid "Connect, get help, or contribute"
+msgstr ""
+
+#: venv/modeltranslation/templates/admin/modeltranslation/app_index.html:24
+#: venv/modeltranslation/templates/admin/modeltranslation/app_index.html:25
+msgid "Admin translations"
+msgstr ""
+
+#: venv/modeltranslation/templates/admin/modeltranslation/app_index.html:29
+#: venv/modeltranslation/templates/admin/modeltranslation/app_index.html:30
+msgid "Update translations"
+msgstr ""
+
+#: venv/modeltranslation/templates/modeltranslation/admin/admin.html:27
+msgid "Translations"
+msgstr ""
+
+#~ msgid "About"
+#~ msgstr "О нас"
+
+#~ msgid "Contacts"
+#~ msgstr "Контакты"

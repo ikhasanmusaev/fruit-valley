@@ -51,11 +51,12 @@ class User(AbstractUser):
 
 class Buyer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=25)
-    last_name = models.CharField(max_length=25)
+    full_name = models.CharField(max_length=25)
     company = models.CharField(max_length=127, null=True, blank=True)
     date_of_register = models.DateTimeField(auto_now_add=True)
     phone = models.CharField(max_length=31)
+    add_email = models.CharField(max_length=31, blank=True, null=True)
+    add_info = models.TextField(max_length=31, blank=True, null=True)
 
 
 class Address(models.Model):

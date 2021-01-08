@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-23 15:26+0500\n"
+"POT-Creation-Date: 2020-12-28 11:17+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,11 +19,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: templates/_home_page/home.html:19 templates/_partials/footer.html:11
-#: templates/_partials/header.html:67
+#: templates/_partials/header.html:71
 msgid "About us"
-msgstr "Biz haqqimizda"
-
-msgid "About"
 msgstr "Biz haqqimizda"
 
 #: templates/_home_page/home.html:22
@@ -34,11 +31,11 @@ msgid ""
 "dating back to the fourth millennium BC in Mesopotamia, and is prized "
 "because of its sweet taste, nutritive value, and long shelf life."
 msgstr ""
-"Quritilgan meva-asl suv tarkibidagi ko'pchilik meva "
-"tabiiy ravishda, quyosh quritish orqali yoki undan foydalanish orqali olib tashlandi "
-"maxsus dryers yoki dehydrators. Quritilgan meva foydalanish uzoq odati bor "
-"Mesopotamiyada miloddan avvalgi to'rtinchi ming yillikka oid va maqtanchoq "
-"chunki uning shirin ta'mi, oziqlanish qiymati,va uzoq raf muddati."
+"Quritilgan meva-asl suv tarkibidagi ko'pchilik meva tabiiy ravishda, quyosh "
+"quritish orqali yoki undan foydalanish orqali olib tashlandi maxsus dryers "
+"yoki dehydrators. Quritilgan meva foydalanish uzoq odati bor Mesopotamiyada "
+"miloddan avvalgi to'rtinchi ming yillikka oid va maqtanchoq chunki uning "
+"shirin ta'mi, oziqlanish qiymati,va uzoq raf muddati."
 
 #: templates/_home_page/home.html:27
 msgid "Our Blog"
@@ -49,26 +46,27 @@ msgid "Testimonials"
 msgstr "Fikrlar"
 
 #: templates/_partials/_contact.html:5 templates/_partials/footer.html:13
-#: templates/_partials/header.html:69
+#: templates/_partials/header.html:73
 msgid "Contact us"
 msgstr "Biz bilan bog'lanish"
-
-msgid "Contacts"
-msgstr "Kontaktlar"
 
 #: templates/_partials/_contact.html:40
 msgid "Send message"
 msgstr "Xabar jo'natish"
 
-#: templates/_partials/footer.html:9 templates/_partials/header.html:65
+#: templates/_partials/footer.html:9 templates/_partials/header.html:69
+#: templates/base_path.html:14
+#: venv/modeltranslation/templates/admin/modeltranslation/app_index.html:9
+#: venv/modeltranslation/templates/modeltranslation/admin/admin.html:25
 msgid "Home"
 msgstr "Bosh sahifa"
 
-#: templates/_partials/footer.html:10 templates/_partials/header.html:66
+#: templates/_partials/footer.html:10 templates/_partials/header.html:70
+#: templates/base_path.html:18
 msgid "Categories"
 msgstr "Kategoriyalar"
 
-#: templates/_partials/footer.html:12 templates/_partials/header.html:68
+#: templates/_partials/footer.html:12 templates/_partials/header.html:72
 msgid "Blog"
 msgstr "Blog"
 
@@ -91,6 +89,14 @@ msgstr "Maxfiylik"
 #: templates/_partials/footer.html:25
 msgid "Terms of Services"
 msgstr "Xizmat ko'rsatish shartlari"
+
+#: templates/_partials/header.html:34
+msgid "Login"
+msgstr ""
+
+#: templates/_partials/header.html:35
+msgid "Register"
+msgstr ""
 
 #: templates/_product_page/product_detail.html:15
 msgid "Retail"
@@ -120,18 +126,133 @@ msgstr "Mahsulot ..dan"
 msgid "One bag contains about"
 msgstr "Bitta sumkada taxminan"
 
-#: templates/_product_page/product_detail.html:163
+#: templates/_product_page/product_detail.html:164
 msgid "description"
 msgstr "tavsif"
 
-#: templates/_product_page/product_detail.html:168
+#: templates/_product_page/product_detail.html:169
 msgid "recipes"
 msgstr "retseptar"
 
-#: templates/_product_page/product_detail.html:172
+#: templates/_product_page/product_detail.html:173
 msgid "Reviews"
 msgstr "Fikrlar"
 
-#: templates/_product_page/product_detail.html:194
+#: templates/_product_page/product_detail.html:197
 msgid "You may also like"
 msgstr "Sizga ham yoqishi mumkin"
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:5
+msgid "Select an image to embed"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:27
+msgid "Browse for the image you want, then click 'Embed Image' to continue..."
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:29
+msgid ""
+"No images found. Upload images using the 'Image Button' dialog's 'Upload' "
+"tab."
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:50
+msgid "Images in: "
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:62
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:80
+msgid "Embed Image"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:146
+msgid "Play Slideshow"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:147
+msgid "Pause Slideshow"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:148
+msgid "&lsaquo; Previous Photo"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:149
+msgid "Next Photo &rsaquo;"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:150
+msgid "Next &rsaquo;"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:151
+msgid "&lsaquo; Prev"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:7
+msgid "Django: the Web framework for perfectionists with deadlines."
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:346
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:368
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:369
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener"
+"\">DEBUG=True</a> is in your settings file and you have not configured any "
+"URLs."
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:384
+msgid "Django Documentation"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:385
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:396
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:397
+msgid "Get started with Django"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:408
+msgid "Django Community"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:409
+msgid "Connect, get help, or contribute"
+msgstr ""
+
+#: venv/modeltranslation/templates/admin/modeltranslation/app_index.html:24
+#: venv/modeltranslation/templates/admin/modeltranslation/app_index.html:25
+msgid "Admin translations"
+msgstr ""
+
+#: venv/modeltranslation/templates/admin/modeltranslation/app_index.html:29
+#: venv/modeltranslation/templates/admin/modeltranslation/app_index.html:30
+msgid "Update translations"
+msgstr ""
+
+#: venv/modeltranslation/templates/modeltranslation/admin/admin.html:27
+msgid "Translations"
+msgstr ""
+
+#~ msgid "About"
+#~ msgstr "Biz haqqimizda"
+
+#~ msgid "Contacts"
+#~ msgstr "Kontaktlar"

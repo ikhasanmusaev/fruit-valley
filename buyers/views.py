@@ -2,12 +2,14 @@ from django.template.loader import render_to_string
 from django.views import View
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.views.generic import DetailView, TemplateView
+
 from .forms import SignupForm, LoginForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
-from .models import User
+from .models import User, Buyer, Address
 from .tokens import account_activation_token
 from django.core.mail import EmailMessage
 from django.contrib.auth import login, update_session_auth_hash, logout
@@ -90,3 +92,54 @@ class Activate(View):
             user = form.save()
             update_session_auth_hash(request, user)
             return redirect('products:index-page')
+
+
+class AccountView(TemplateView):
+    template_name = 'accounts/account.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AccountView, self).get_context_data(**kwargs)
+        context['buyer'] = Buyer.objects.filter(user_id=self.request.user.id)[0]
+        context['address'] = Address.objects.filter(user_id=self.request.user.id)[0]
+        return context
+
+    def post(self, request):
+        data = request.POST
+        buyer, created_b = Buyer.objects.update_or_create(
+            user_id=request.user.id,
+            defaults={
+                'full_name': data['name'],
+                'company': data['company'] if 'company' in data else None,
+                'phone': data['phone'],
+                'add_email': data['email'] if 'email' in data else None,
+                'add_info': data['add-info'] if 'add-info' in data else None,
+            })
+        address, created_a = Address.objects.update_or_create(
+            user_id=request.user.id,
+            defaults={
+                'country': data['country'],
+                'city': data['city'],
+                'address_line1': data['address1'],
+                'address_line2': data['address2'],
+                'zip': data['zip_code'],
+            },
+        )
+
+        return redirect('products:index-page')
+
+
+class AccountDetailsView(TemplateView):
+    template_name = 'accounts/account-details.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AccountDetailsView, self).get_context_data(**kwargs)
+        context['form'] = PasswordChangeForm(self.request.user)
+        return context
+
+    def post(self, request):
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            return redirect('products:index-page')
+        return redirect('products:index-page')

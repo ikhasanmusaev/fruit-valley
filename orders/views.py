@@ -1,9 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, DetailView
 
+from buyers import models as buyers
 from products.models import Product, FavouriteProducts
-from .models import Cart, PaymentMethods
+from .models import Cart, PaymentMethods, Order
 
 
 class CartListView(ListView):
@@ -54,9 +55,62 @@ class CheckoutOrderView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CheckoutOrderView, self).get_context_data(**kwargs)
-        context['total'] = self.model.total_of_cart(self.model, self.request.user.id)
+        context['total'] = round(self.model.total_of_cart(self.model, self.request.user.id))
         context['payment_methods'] = PaymentMethods.objects.filter(status=True)
+        context['buyer'] = buyers.Buyer.objects.filter(user_id=self.request.user.id)[0]
+        context['address'] = buyers.Address.objects.filter(user_id=self.request.user.id)[0]
         return context
 
     def post(self, request):
-        return
+        data = request.POST
+
+        cart_ids = [data[x] for x in data if 'cart-' in x]
+
+        carts = Cart.objects.filter(id__in=cart_ids)
+
+        buyer, created_b = buyers.Buyer.objects.update_or_create(
+            user_id=request.user.id,
+            defaults={
+                'full_name': data['name'],
+                'company': data['company'] if 'company' in data else None,
+                'phone': data['phone'],
+                'add_email': data['email'] if 'email' in data else None,
+                'add_info': data['add-info'] if 'add-info' in data else None,
+            })
+        address, created_a = buyers.Address.objects.update_or_create(
+            user_id=request.user.id,
+            defaults={
+                'country': data['country'],
+                'city': data['city'],
+                'address_line1': data['address1'],
+                'address_line2': data['address2'],
+                'zip': data['zip_code'],
+            },
+        )
+        order = Order.objects.create(
+            buyer_id=buyer.id,
+            price=data['total'],
+            method_payment_id=data['method-payment'] if 'method-payment' in data else None,
+        )
+        products = []
+        for i in carts:
+            i.delete()
+            products.append({
+                'product_id': i.product.id,
+                'name': i.product.name,
+                'price': i.amount,
+                'cart_id': i.id,
+            })
+
+        order.products = products
+        order.save()
+
+        return redirect('products:index-page')
+
+
+class OrdersListView(ListView):
+    model = Order
+    template_name = 'orders/orders_list.html'
+
+    def get_queryset(self):
+        return Order.objects.filter(buyer_id=self.request.user.id)

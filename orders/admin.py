@@ -8,6 +8,7 @@ from . import models
 @admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
     list_per_page = 30
+    list_display = ['id', 'products']
 
 
 @admin.register(models.Cart)

@@ -2,11 +2,13 @@
 {% load static i18n %}
 
 {% block content %}
+    {% get_current_language as LANGUAGE_CODE %}
     <section class="container">
         <div class="product-container">
             <div class="product-img">
                 <img src="http://{{ request.get_host }}{{ product.image.file.url }}" alt="">
-                <a href="javascript:void(0);" class="add-favourite" onclick="add_to_favourite('{{ product.id }}')">
+                <a href="javascript:void(0);" class="add-favourite"
+                   onclick="add_to_favourite('{{ product.id }}', '{{ LANGUAGE_CODE }}')">
                     <i class="far fa-heart"></i>
                 </a>
             </div>
@@ -214,7 +216,6 @@
         if (favourite) {
             $(`.add-favourite`).find('i').addClass('liked')
         }
-        {% get_current_language as LANGUAGE_CODE %}
 
         let addToCart = (product_id) => {
             $.ajax({
