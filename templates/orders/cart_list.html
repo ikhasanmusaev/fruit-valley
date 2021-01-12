@@ -57,26 +57,5 @@
 {% endblock %}
 
 {% block script %}
-    <script>
-        let removeCart = (cart_id) => {
-            let cart = $(`#cart-item-${cart_id}`);
-
-            $.ajax({
-                type: "POST",
-                url: `/orders/cart/`,
-                data: {
-                    csrfmiddlewaretoken: "{{csrf_token}}",
-                    delete: cart_id,
-                },
-                success: (response, status) => {
-                    console.log(response, status)
-                    cart.remove()
-                },
-                error: (xhr, error, status) => {
-                    console.log(error);
-                    console.log(status);
-                }
-            })
-        }
-    </script>
+    <script src="{% static 'js/ajax-queries.js' %}"></script>
 {% endblock %}

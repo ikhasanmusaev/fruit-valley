@@ -1,3 +1,5 @@
+import json
+
 from django import template
 
 from django.utils.translation import gettext as _
@@ -31,3 +33,8 @@ def get_path(url):
 def get_title(url):
     url = url.split('/')[2:]
     return _(url[0].capitalize())
+
+
+@register.simple_tag
+def get_key(string):
+    return json.loads(string)['cash']

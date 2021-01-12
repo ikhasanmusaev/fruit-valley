@@ -8,7 +8,7 @@
             <div class="product-img">
                 <img src="http://{{ request.get_host }}{{ product.image.file.url }}" alt="">
                 <a href="javascript:void(0);" class="add-favourite"
-                   onclick="add_to_favourite('{{ product.id }}', '{{ LANGUAGE_CODE }}')">
+                   onclick="add_to_favourite('{{ product.id }}')">
                     <i class="far fa-heart"></i>
                 </a>
             </div>
@@ -216,24 +216,5 @@
         if (favourite) {
             $(`.add-favourite`).find('i').addClass('liked')
         }
-
-        let addToCart = (product_id) => {
-            $.ajax({
-                type: 'POST',
-                url: '/{{ LANGUAGE_CODE }}/orders/cart/',
-                dataType: 'json',
-                data: {
-                    product_id: product_id,
-                    csrfmiddlewaretoken: csrf_token,
-                    type_of_selling: 'qty', // weight or qty
-                    total: '1', // weight or qty
-                    amount: '1',
-                },
-                success: (response) => {
-
-                }
-            })
-        }
-
     </script>
 {% endblock %}

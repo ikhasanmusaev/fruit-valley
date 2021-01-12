@@ -57,8 +57,8 @@ class CheckoutOrderView(ListView):
         context = super(CheckoutOrderView, self).get_context_data(**kwargs)
         context['total'] = round(self.model.total_of_cart(self.model, self.request.user.id))
         context['payment_methods'] = PaymentMethods.objects.filter(status=True)
-        context['buyer'] = buyers.Buyer.objects.filter(user_id=self.request.user.id)[0]
-        context['address'] = buyers.Address.objects.filter(user_id=self.request.user.id)[0]
+        context['buyer'] = buyers.Buyer.objects.filter(user_id=self.request.user.id)[0] if buyers.Buyer.objects.filter(user_id=self.request.user.id).exists() else None
+        context['address'] = buyers.Address.objects.filter(user_id=self.request.user.id)[0] if buyers.Address.objects.filter(user_id=self.request.user.id).exists() else None
         return context
 
     def post(self, request):

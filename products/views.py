@@ -20,7 +20,7 @@ class Index(ListView):
         context = super(Index, self).get_context_data(**kwargs)
         context['slide_of_product_list'] = SlideOfProduct.objects.all()[0:6]
         context['articles'] = Article.objects.all()[0:4]
-        context['categories'] = Category.objects.filter(status=True)[0:6]
+        context['categories'] = Category.objects.filter(status=True, product__isnull=False)[0:6]
         context['reviews'] = Review.objects.filter(status=True)[:6]
         context['favourites'] = [i.product_id for i in FavouriteProducts.objects.filter(user_id=1)]
         return context
@@ -32,7 +32,7 @@ class CategoryListView(ListView):
     template_name = 'categories/category_list.html'
 
     def get_queryset(self):
-        return Category.objects.all()
+        return Category.objects.filter(product__isnull=False)
 
 
 class CategoryDetailView(DetailView):
@@ -44,7 +44,7 @@ class CategoryDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CategoryDetailView, self).get_context_data(**kwargs)
-        context['category_list'] = self.models.objects.all()
+        context['category_list'] = self.models.objects.filter(product__isnull=False)
         context['product_list'] = Product.objects.filter(category__slug=self.kwargs['slug'])
         context['is_item'] = True
         return context
@@ -97,8 +97,6 @@ class AddToFavorite(View):
         if request.is_ajax():
             product_id = request.POST['product_id']
             product = Product.objects.get(id=int(product_id))
-
-            print(product_id)
 
             obj, created = FavouriteProducts.objects.update_or_create(
                 product_id=product_id,

@@ -10,12 +10,18 @@ class TypeOfSelling(models.TextChoices):
 
 
 class Order(models.Model):
+    class STATUS(models.TextChoices):
+        WAITING = 'waiting'
+        CANCELLED = 'cancelled'
+        DELIVERED = 'delivered'
+        PAID = 'paid'
     buyer = models.ForeignKey(User, on_delete=models.CASCADE)
     price = models.PositiveSmallIntegerField()
     # qty = models.PositiveSmallIntegerField(default=1)
     products = models.JSONField(null=True, blank=True)
     # type_of_selling = models.CharField(choices=TypeOfSelling.choices, blank=True, max_length=15)  # weight or wty
     # total = models.PositiveSmallIntegerField()  # weight or wty
+    status = models.CharField(max_length=15, choices=STATUS.choices, default='waiting')
     method_payment = models.ForeignKey('PaymentMethods', on_delete=models.CASCADE)
     date_of_creat = models.DateTimeField(auto_now_add=True)
     date_of_delivery = models.DateTimeField(blank=True, null=True)
@@ -45,6 +51,7 @@ class PaymentMethods(models.Model):
     name = models.CharField(max_length=128)
     method_key = models.CharField(max_length=128, unique=True)
     status = models.BooleanField(default=True)
+    props = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return "{} ({})".format(self.name, self.method_key)

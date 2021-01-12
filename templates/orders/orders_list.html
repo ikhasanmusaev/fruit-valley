@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% load path %}
     <section class="page-account">
         <div class="container">
             <ul class="page-account-menu">
@@ -24,6 +25,8 @@
                         <th>Order Details</th>
                         <th>Order Date</th>
                         <th>TOTAL</th>
+                        <th>Payment</th>
+                        <th>Status</th>
                         </thead>
                         <tbody>
                         {% for order in order_list %}
@@ -33,13 +36,33 @@
                                     <ul>
                                         {% for product in order.products %}
                                             <li>
-                                                <a href="{% url 'products:product-detail' product.product_id %}">{{ product.name }}</a> <span>${{ product.price }}</span>
+                                                <a href="{% url 'products:product-detail' product.product_id %}">{{ product.name }}</a>
+                                                <span>${{ product.price }}</span>
                                             </li>
                                         {% endfor %}
                                     </ul>
                                 </td>
                                 <td class="order-date">{{ order.date_of_creat|date:'d/m/Y' }}</td>
                                 <td class="order-total">${{ order.price }}</td>
+                                <td class="">{{ order.method_payment.name }}<br>
+                                    {% if order.status == 'waiting' %}
+                                        <form method="GET" action="https://oplata.kapitalbank.uz">
+                                            <input type="hidden" name="cash" value="{% get_key order.method_payment.props %}"/>
+                                            <input type="hidden" name="redirectUrl" value="37.230.115.15"/>
+                                            <input type="hidden" name="description" value="Test"/>
+                                            <input type="hidden" name="amount" value="{% widthratio order.price 1 100 %}"/>
+                                            <button type="submit"
+                                                    style="cursor: pointer; border: 1px solid #ebebeb; border-radius: 6px; background: linear-gradient(to top, #f1f2f2, white); width: 100px; height: 54px; display: flex; align-items: center; justify-content: center;">
+                                                <img style="width: 100%;"
+                                                     src="https://oplata.kapitalbank.uz/images/apelsin-v1.png">
+                                            </button>
+                                        </form>
+                                    {% endif %}</td>
+                                <td class="">{% if order.status == 'delivered' %} Dostavleno
+                                {% elif order.status == 'cancelled' %} Otmeneno
+                                {% elif order.status == 'waiting' %} Jdet
+                                {% elif order.status == 'paid' %} Oplacheno
+                                {% endif %} </td>
                             </tr>
 
                         {% endfor %}

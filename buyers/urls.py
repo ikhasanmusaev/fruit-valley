@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+
 from . import views
 from django.contrib.auth import views as auth_views
 from django.urls import path, re_path, include, reverse_lazy
@@ -36,7 +38,7 @@ urlpatterns = [
     path('authentication/', views.Signup.as_view(), name='login_view'),
     path('logout/', views.logout_view, name='logout_view'),
     path('', views.AccountView.as_view(), name='account'),
-    path('details/', views.AccountDetailsView.as_view(), name='account-details'),
+    path('details/', login_required(views.AccountDetailsView.as_view()), name='account-details'),
     re_path(r'^oauth/', include('social_django.urls', namespace='social')),
     path('activate/<str:uid>/<str:token>', views.Activate.as_view(), name='activate'),
 ]

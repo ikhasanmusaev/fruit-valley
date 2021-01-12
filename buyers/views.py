@@ -18,7 +18,6 @@ from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm, Auth
 
 def logout_view(request):
     logout(request)
-    print(123)
     return redirect('products:index-page')
 
 
@@ -65,15 +64,11 @@ class Activate(View):
     def get(self, request, uid, token, backend='buyers.backends.EmailBackend'):
         try:
             uid = force_text(urlsafe_base64_decode(uid))
-            print(uid)
             user = User.objects.get(pk=uid)
-            print(123)
         except(TypeError, ValueError, OverflowError, User.DoesNotExist):
             user = None
-            print(1234)
 
         if user is not None and account_activation_token.check_token(user, token):
-            print(1236)
             # activate user and login:
             user.is_active = True
             user.save()
@@ -99,8 +94,8 @@ class AccountView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(AccountView, self).get_context_data(**kwargs)
-        context['buyer'] = Buyer.objects.filter(user_id=self.request.user.id)[0]
-        context['address'] = Address.objects.filter(user_id=self.request.user.id)[0]
+        context['buyer'] = Buyer.objects.filter(user_id=self.request.user.id)[0] if Buyer.objects.filter(user_id=self.request.user.id).exists() else None
+        context['address'] = Address.objects.filter(user_id=self.request.user.id)[0] if Address.objects.filter(user_id=self.request.user.id).exists() else None
         return context
 
     def post(self, request):

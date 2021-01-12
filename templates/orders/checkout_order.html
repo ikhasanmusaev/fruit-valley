@@ -2,118 +2,137 @@
 
 {% block content %}
     <section class="page-checkout">
-        <form action="#" method="POST">
-        {% csrf_token %}
-            <div class="container">
-                <div class="billing">
-                    <h1 class="billing-title">
-                        Billing details
-                    </h1>
+        {% if cart_list %}
+            <form action="#" method="POST">
+                {% csrf_token %}
+                <div class="container">
+                    <div class="billing">
+                        <h1 class="billing-title">
+                            Billing details
+                        </h1>
 
-                    <div class="grid">
-                        <div>
-                            <label for="name">Your Name *</label>
-                            <input type="text" id="name" placeholder="Name" name="name" value="{{ buyer.full_name }}" required>
+                        <div class="grid">
+                            <div>
+                                <label for="name">Your Name *</label>
+                                <input type="text" id="name" placeholder="Name" name="name"
+                                       value="{{ buyer.full_name }}"
+                                       required>
+                            </div>
+                            <div>
+                                <label for="email">Your Email *</label>
+                                <input type="email" id="email" placeholder="Email" name="email"
+                                       value="{{ buyer.add_email }}" required>
+                            </div>
                         </div>
-                        <div>
-                            <label for="email">Your Email *</label>
-                            <input type="email" id="email" placeholder="Email" name="email" value="{{ buyer.add_email }}" required>
+
+                        <label for="company">Company Name</label>
+                        <input type="text" id="company" placeholder="Company Name" name="company"
+                               value="{% if buyer.company %} {{ buyer.company }}{% endif %}">
+
+
+                        <label for="country">Country *</label>
+                        <select name="country" id="country" required>
+                            <option value="uk">United Kingdom (UK)</option>
+                            <option value="uz">Uzbekistan (UZ)</option>
+                            <option value="uk">USA (US)</option>
+                            <option value="uk">United Kingdom (UK)</option>
+                        </select>
+
+                        <label for="address1">Address Line 1*</label>
+                        <input type="text" id="address1" placeholder="Address" name="address1"
+                               value="{{ address.address_line1 }}" required>
+
+                        <label for="address2">Address Line 2*</label>
+                        <input type="text" id="address2" placeholder="Address" name="address2"
+                               value="{{ address.address_line2 }}" required>
+
+                        <label for="town">Town/City *</label>
+                        <input type="text" id="town" placeholder="Town/City" name="city" value="{{ address.city }}"
+                               required>
+
+                        <div class="grid">
+                            <div>
+                                <label for="postcode">Postcode/Zip *</label>
+                                <input type="text" id="postcode" placeholder="Postcode/Zip *" name="zip_code"
+                                       value="{{ address.zip }}" required>
+                            </div>
+                            <div>
+                                <label for="phone">Phone *</label>
+                                <input type="tel" id="phone" placeholder="Phone *" name="phone"
+                                       value="{{ buyer.phone }}"
+                                       required>
+                            </div>
                         </div>
+
+                        <label for="additional">Additional Information</label>
+                        <textarea id="additional" placeholder="Additional Information"
+                                  name="add-info">{{ buyer.add_info }}</textarea>
                     </div>
-
-                    <label for="company">Company Name</label>
-                    <input type="text" id="company" placeholder="Company Name" name="company" value="{% if buyer.company %} {{ buyer.company }}{% endif %}">
-
-
-                    <label for="country">Country *</label>
-                    <select name="country" id="country" required>
-                        <option value="uk">United Kingdom (UK)</option>
-                        <option value="uz">Uzbekistan (UZ)</option>
-                        <option value="uk">USA (US)</option>
-                        <option value="uk">United Kingdom (UK)</option>
-                    </select>
-
-                    <label for="address1">Address Line 1*</label>
-                    <input type="text" id="address1" placeholder="Address" name="address1" value="{{ address.address_line1 }}" required>
-
-                    <label for="address2">Address Line 2*</label>
-                    <input type="text" id="address2" placeholder="Address" name="address2" value="{{ address.address_line2 }}" required>
-
-                    <label for="town">Town/City *</label>
-                    <input type="text" id="town" placeholder="Town/City" name="city" value="{{ address.city }}" required>
-
-                    <div class="grid">
-                        <div>
-                            <label for="postcode">Postcode/Zip *</label>
-                            <input type="text" id="postcode" placeholder="Postcode/Zip *" name="zip_code" value="{{ address.zip }}" required>
-                        </div>
-                        <div>
-                            <label for="phone">Phone *</label>
-                            <input type="tel" id="phone" placeholder="Phone *" name="phone" value="{{ buyer.phone }}" required>
-                        </div>
-                    </div>
-
-                    <label for="additional">Additional Information</label>
-                    <textarea id="additional" placeholder="Additional Information" name="add-info">{{ buyer.add_info }}</textarea>
-                </div>
-                <div class="order">
-                    <h1 class="billing-title">
-                        Your Order
-                    </h1>
-                    <ul>
-                        <li class="flex order-title">
-                            <span>Name</span>
-                            <span>Total</span>
-                        </li>
-                        {% for cart in cart_list %}
-                            <li class="flex order-product">
-                                <span>{{ cart.product.name }}</span>
-                                <span>{{ cart.amount }}</span>
-                                <input type="hidden" name="cart-{{ forloop.counter }}" value="{{ cart.id }}">
-                            </li>
-                        {% endfor %}
-
-                        <li class="flex order-subtotal">
-                            <span>Sub Total</span>
-                            <span>${{ total }}</span>
-                            <input type="hidden" value="{{ total }}" name="total">
-                        </li>
-                        <li class="flex order-shipping order-subtotal">
-                            <span>Shipping</span>
-                            <span>$10,00</span>
-                        </li>
-                        <li class="flex order-subtotal">
-                            <span>Total</span>
-                            <span>$434,42</span>
-                            <input type="hidden" name="amount" value="">
-                        </li>
-                    </ul>
-                    <h1 class="billing-title">
-                        Payment Details
-                    </h1>
-                    <p class="order-details">
-                        Please use your Order ID as the payment reference. Your order won't be shipped until the funds
-                        have
-                        cleared in our account.
-                    </p>
-                    <div class="product-add-cart">
+                    <div class="order">
+                        <h1 class="billing-title">
+                            Your Order
+                        </h1>
                         <ul>
-                            {% for payment_method in payment_methods %}
-                                <li>
-                                    <input type="radio" id="t-option-{{ forloop.counter }}" name="method-payment"
-                                           value="{{ payment_method.id }}" {% if forloop.counter == 1 %} checked {% endif %}>
-                                    <label for="t-option-{{ forloop.counter }}">{{ payment_method.name }}</label>
-
-                                    <div class="check"></div>
+                            <li class="flex order-title">
+                                <span>Name</span>
+                                <span>Total</span>
+                            </li>
+                            {% for cart in cart_list %}
+                                <li class="flex order-product">
+                                    <span>{{ cart.product.name }}</span>
+                                    <span>{{ cart.amount }}</span>
+                                    <input type="hidden" name="cart-{{ forloop.counter }}" value="{{ cart.id }}">
                                 </li>
                             {% endfor %}
+
+                            <li class="flex order-subtotal">
+                                <span>Sub Total</span>
+                                <span>${{ total }}</span>
+                                <input type="hidden" value="{{ total }}" name="total">
+                            </li>
+                            <li class="flex order-shipping order-subtotal">
+                                <span>Shipping</span>
+                                <span>$10,00</span>
+                            </li>
+                            <li class="flex order-subtotal">
+                                <span>Total</span>
+                                <span>$434,42</span>
+                                <input type="hidden" name="amount" value="">
+                            </li>
                         </ul>
-                        <button class="add-order">
-                            Place order
-                        </button>
+                        <h1 class="billing-title">
+                            Payment Details
+                        </h1>
+                        <p class="order-details">
+                            Please use your Order ID as the payment reference. Your order won't be shipped until the
+                            funds
+                            have
+                            cleared in our account.
+                        </p>
+                        <div class="product-add-cart">
+                            <ul>
+                                {% for payment_method in payment_methods %}
+                                    <li>
+                                        <input type="radio" id="t-option-{{ forloop.counter }}" name="method-payment"
+                                               value="{{ payment_method.id }}" {% if forloop.counter == 1 %}
+                                               checked {% endif %}>
+                                        <label for="t-option-{{ forloop.counter }}">{{ payment_method.name }}</label>
+
+                                        <div class="check"></div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <button class="add-order">
+                                Place order
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        {% else %}
+            <h1 class="container">
+                Your cart is empty
+            </h1>
+        {% endif %}
     </section>
 {% endblock %}
