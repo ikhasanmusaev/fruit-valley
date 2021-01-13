@@ -17,7 +17,7 @@ SECRET_KEY = env('SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [env('SERVER_HOST')]
 
 # Application definition
 
@@ -141,7 +141,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-# STATIC_ROOT = Path.joinpath(BASE_DIR, "static/")
+#STATIC_ROOT = Path.joinpath(BASE_DIR, "static/")
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = Path.joinpath(BASE_DIR, "media")
