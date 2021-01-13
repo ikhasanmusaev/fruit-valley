@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView, View, ListView
+from django.views.decorators.csrf import csrf_exempt
 
 from orders.models import Order
 from products.models import Review
@@ -50,6 +51,7 @@ class AboutUs(TemplateView):
         return context
 
 
+@csrf_exempt
 def apelsin_payment(request):
     if request.method == "POST":
         if request.user.id == 3:
@@ -69,7 +71,7 @@ def apelsin_payment(request):
                 try:
                     orders = Order.objects.get(id=int(order_id))
                 except Order.MultipleObjectsReturned or Order.DoesNotExist:
-                    return HttpResponse(data={"status": False})
+                    return JsonResponse(data={"status": False})
                 else:
                     if orders.status == 'waiting':
                         if orders.amount == amount[:-2]:
@@ -78,15 +80,15 @@ def apelsin_payment(request):
                             # orders.paid_date = int(date_now)
                             orders.status = 'paid'
                             orders.save()
-                            return HttpResponse(data={"status": True})
+                            return JsonResponse(data={"status": True})
                         else:
-                            return HttpResponse(data={"status": False, "description": "Сумма оплаты не соответствует цене"})
+                            return JsonResponse(data={"status": False, "description": "Сумма оплаты не соответствует цене"})
                     else:
-                        return HttpResponse(data={"status": False}, status=403)
+                        return JsonResponse(data={"status": False}, status=403)
             else:
-                return HttpResponse(data={"status": False}, status=400)
+                return JsonResponse(data={"status": False}, status=400)
         else:
-            return HttpResponse(data={"status": False}, status=401)
+            return JsonResponse(data={"status": False}, status=401)
     else:
-        return HttpResponse(data={"status": False}, status=403)
+        return JsonResponse(data={"status": False}, status=403)
 
