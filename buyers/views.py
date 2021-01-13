@@ -22,10 +22,14 @@ def logout_view(request):
 
 
 class Signup(View):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.signup_form = SignupForm()
+        self.login_form = LoginForm()
+
     def get(self, request):
-        signup_form = SignupForm()
-        login_form = LoginForm()
-        return render(request, 'accounts/login.html', {'sign_form': signup_form, 'login_form': login_form})
+        return render(request, 'accounts/login.html', {'sign_form': self.signup_form, 'login_form': self.login_form})
 
     def post(self, request):
         if 'signup_' in request.POST:
@@ -57,7 +61,7 @@ class Signup(View):
                     return redirect(request.POST.get('next'))
                 else:
                     return redirect('products:index-page')
-        return redirect('products:index-page')
+        return render(request, 'accounts/login.html', {'sign_form': self.signup_form, 'login_form': self.login_form})
 
 
 class Activate(View):
