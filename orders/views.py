@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, DetailView
 
@@ -39,7 +39,7 @@ class CartListView(ListView):
                     obj.amount = request.POST['amount']
                     obj.save()
 
-                return HttpResponse(status=201)
+                return JsonResponse(data={}, status=200)
             except:
                 return HttpResponse(status=403)
 
@@ -105,7 +105,7 @@ class CheckoutOrderView(ListView):
         order.products = products
         order.save()
 
-        return redirect('products:index-page')
+        return redirect('orders:orders-list')
 
 
 class OrdersListView(ListView):

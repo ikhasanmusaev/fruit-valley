@@ -93,7 +93,6 @@ function by_category(id) {
 }
 
 let addToCart = (product_id) => {
-    console.log(123)
     $.ajax({
         type: 'POST',
         url: `/${language_code}/orders/cart/`,
@@ -103,10 +102,14 @@ let addToCart = (product_id) => {
             csrfmiddlewaretoken: csrf_token,
             type_of_selling: 'qty', // weight or qty
             total: '1', // weight or qty
-            amount: '1',
+            amount: '500',
         },
         success: (response) => {
-
+            location.reload(true);
+        },
+        error: (xhr, error, status) => {
+            console.log(error);
+            console.log(status);
         }
     })
 }
