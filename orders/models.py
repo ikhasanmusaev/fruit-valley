@@ -15,6 +15,7 @@ class Order(models.Model):
         CANCELLED = 'cancelled'
         DELIVERED = 'delivered'
         PAID = 'paid'
+        NOT_EXISTS = 'not_exists'
     buyer = models.ForeignKey(User, on_delete=models.CASCADE)
     price = models.PositiveSmallIntegerField()
     # qty = models.PositiveSmallIntegerField(default=1)

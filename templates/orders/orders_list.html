@@ -48,7 +48,8 @@
                                     {% if order.status == 'waiting' %}
                                         <form method="GET" action="https://oplata.kapitalbank.uz">
                                             <input type="hidden" name="cash" value="{% get_key order.method_payment.props %}"/>
-                                            <input type="hidden" name="redirectUrl" value="37.230.115.15"/>
+                                            <input type="hidden" name="redirectUrl" value="37.230.115.15/orders/"/>
+                                            <input type="hidden" name="orderId" value="{{ order.id }}"/>
                                             <input type="hidden" name="description" value="Test"/>
                                             <input type="hidden" name="amount" value="{% widthratio order.price 1 100 %}"/>
                                             <button type="submit"
