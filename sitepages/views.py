@@ -54,41 +54,40 @@ class AboutUs(TemplateView):
 @csrf_exempt
 def apelsin_payment(request):
     if request.method == "POST":
-        if request.user.id == 3:
-            x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
-            if x_forwarded_for:
-                ip = x_forwarded_for.split(",")[0]
+        # if request.user.id == 4:
+        x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(",")[0]
+        else:
+            ip = request.META.get("REMOTE_ADDR")
+        # {'orderId': '1', 'transaction_type': 'pay', 'amount': '50000', 'transactionId': '137458'}
+        if ip == "87.237.235.235":
+            data = request.data
+            transaction_id = data['transactionId']
+            amount = data['amount']
+            order_id = data['orderId']
+            transaction_type = ['transaction_type']
+            date_now = datetime.datetime.now().timestamp()
+            try:
+                orders = Order.objects.get(id=int(order_id))
+            except Order.MultipleObjectsReturned or Order.DoesNotExist:
+                return JsonResponse(data={"status": False})
             else:
-                ip = request.META.get("REMOTE_ADDR")
-            # {'orderId': '1', 'transaction_type': 'pay', 'amount': '50000', 'transactionId': '137458'}
-            if ip == "87.237.235.235":
-                data = request.data
-                transaction_id = data['transactionId']
-                amount = data['amount']
-                order_id = data['orderId']
-                transaction_type = ['transaction_type']
-                date_now = datetime.datetime.now().timestamp()
-                try:
-                    orders = Order.objects.get(id=int(order_id))
-                except Order.MultipleObjectsReturned or Order.DoesNotExist:
-                    return JsonResponse(data={"status": False})
-                else:
-                    if orders.status == 'waiting':
-                        if orders.amount == amount[:-2]:
-                            # orders.tran_id = transaction_id
-                            # orders.method_pay = 'apelsin'
-                            # orders.paid_date = int(date_now)
-                            orders.status = 'paid'
-                            orders.save()
-                            return JsonResponse(data={"status": True})
-                        else:
-                            return JsonResponse(data={"status": False, "description": "Сумма оплаты не соответствует цене"})
+                if orders.status == 'waiting':
+                    if orders.amount == amount[:-2]:
+                        # orders.tran_id = transaction_id
+                        # orders.method_pay = 'apelsin'
+                        # orders.paid_date = int(date_now)
+                        orders.status = 'paid'
+                        orders.save()
+                        return JsonResponse(data={"status": True})
                     else:
-                        return JsonResponse(data={"status": False}, status=403)
-            else:
-                return JsonResponse(data={"status": False}, status=400)
+                        return JsonResponse(data={"status": False, "description": "Сумма оплаты не соответствует цене"})
+                else:
+                    return JsonResponse(data={"status": False}, status=403)
+            # else:
+            #     return JsonResponse(data={"status": False}, status=400)
         else:
             return JsonResponse(data={"status": False}, status=401)
     else:
         return JsonResponse(data={"status": False}, status=403)
-
