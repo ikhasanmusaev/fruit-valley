@@ -47,7 +47,7 @@ function product_item(id, img, name, price, rating, sale = null) {
                             <i class="far fa-heart"></i>
                         </a>
                         <a href="/product/${id}" class="add-card">
-                            Add card
+                            Read more
                         </a>
                         <a href="#" class="open">
                             <i class="far fa-heart"></i>

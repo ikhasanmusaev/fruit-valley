@@ -64,3 +64,11 @@ class SlideOfProduct(models.Model):
 
     class Meta:
         ordering = ['position']
+
+
+class Subscribe(models.Model):
+    email = models.CharField(max_length=25)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
