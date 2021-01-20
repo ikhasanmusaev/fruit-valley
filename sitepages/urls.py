@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 
 from . import views
 
@@ -9,4 +9,5 @@ urlpatterns = [
     path('contacts/', views.ContactUs.as_view(), name='contacts'),
     path('about/', views.AboutUs.as_view(), name='about'),
     path('apelsin/payment/', views.apelsin_payment),
+    re_path('search/', views.SearchView.as_view(), name='search'),
 ]

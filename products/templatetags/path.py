@@ -8,7 +8,6 @@ register = template.Library()
 
 
 def j_j(link, title, active=None):
-    print('/ <li><a href="{0}" {2}>{1}</a></li>'.format(link, _(title.capitalize()), 'class="active"' if active else ''))
     return '/ <li><a href="{0}" {2}>{1}</a></li>'.format(link, _(title.capitalize()), 'class="active"' if active else '')
 
 
@@ -17,10 +16,8 @@ def join_with_slash(path):
     data += j_j(path[0][0], path[0][1], False if len(path) > 1 else True)
     for j, i in enumerate(path[1:]):
         if j + 1 == len(path) - 1:
-            print(j+1, len(path) - 1)
             data += j_j(i[0], i[1], True)
             continue
-        print(654)
         data += j_j(i[0], i[1])
     return data
 
@@ -31,6 +28,10 @@ def get_path(url):
     path = []
     for i in url:
         if i:
+            if '?query=' in i:
+                i = i.split("=", 1)[1]
+                path.append(['?query=' + i, i])
+                continue
             path.append(['/' + i, i])
     text = join_with_slash(path)
     return text

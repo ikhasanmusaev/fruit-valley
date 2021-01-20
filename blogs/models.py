@@ -11,7 +11,7 @@ class Article(models.Model):
     body = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
-    content_image = models.ImageField(upload_to='articles/', blank=True, null=True)
+    content_image = models.ImageField(upload_to='articles/')
     slug = models.SlugField(unique=True)
     status = models.IntegerField(choices=BlogStatus.choices)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)

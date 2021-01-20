@@ -19,3 +19,9 @@
         </div>
     </section>
 {% endblock %}
+
+{% block script %}
+    <script>
+        $('.active').parent().parent().parent().addClass('active')
+    </script>
+{% endblock %}

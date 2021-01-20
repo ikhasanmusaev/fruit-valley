@@ -1,0 +1,17 @@
+{% extends 'base_path.html' %}
+
+{% block content %}
+    <section class="search-container">
+        <div class="container">
+            <div class="p-products">
+            {% if product_list %}
+                {% for product in product_list %}
+                    {% include "_partials/_product_item.html" %}
+                {% endfor %}
+            {% else %}
+                Not found
+            {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

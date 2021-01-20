@@ -54,8 +54,8 @@
                 <img src="{% static 'images/logo.png' %}" alt="">
             </a>
         </div>
-        <form class="search">
-            <input type="text" placeholder="Search this site...">
+        <form class="search" action="{% url 'site_pages:search' %}" method="get">
+            <input type="text" placeholder="Search this site..." name="query">
             <button><i class="fas fa-search"></i></button>
 
         </form>

@@ -54,6 +54,22 @@ class Category(models.Model):
     slug = models.CharField(max_length=31, unique=True)
     image = models.ImageField(upload_to='category/', blank=True)
     status = models.BooleanField(default=False)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
+
+    @staticmethod
+    def active_categories(parent=False):
+        categories = Category.objects.filter(status=True, parent__isnull=False)
+        ll = []
+        for i in categories:
+            if Product.objects.filter(category=i.id).exists():
+                ll.append(i.id)
+
+        actives = Category.objects.filter(id__in=ll)
+        actives_id = [x.parent_id for x in actives]
+        if parent:
+            return Category.objects.filter(id__in=actives_id)
+
+        return actives
 
     def __str__(self):
         return self.name

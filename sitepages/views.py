@@ -3,13 +3,15 @@ import sys
 
 from django.conf import settings
 from django.core.mail import send_mail
+from django.db.models import Q
 from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View, ListView
 from django.views.decorators.csrf import csrf_exempt
 
 from orders.models import Order
 from products.models import Review
+from products.models import Review, Product
 
 
 class SendMail(View):
@@ -49,6 +51,24 @@ class AboutUs(TemplateView):
         context = super(AboutUs, self).get_context_data(**kwargs)
         context['reviews'] = Review.objects.filter(status=True)[:6]
         return context
+
+
+class SearchView(ListView):
+    model = Product
+    template_name = 'search.html'
+
+    def get(self, request, *args, **kwargs):
+        print(not 'query' in request.GET)
+        print(not request.GET['query'])
+        print(request.GET['query'] == '')
+        if not 'query' in request.GET or not request.GET['query'] and request.GET['query'] == '':
+            print(12)
+            return redirect('products:index-page')
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return self.model.objects.filter(Q(name__icontains=self.request.GET['query']) |
+                                         Q(description__icontains=self.request.GET['query']))
 
 
 @csrf_exempt
