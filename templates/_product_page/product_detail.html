@@ -35,7 +35,7 @@
                 <div class="product-info">
                     {% if product.description %}
                         <p>
-                            {{ product.description|capfirst }}<a href="#description">{% trans 'Read more' %} ></a>
+                            {{ product.description|capfirst|safe }}<a href="#description">{% trans 'Read more' %} ></a>
                         </p>
 
                     {% endif %}
@@ -115,7 +115,7 @@
                         <input type="text" placeholder="1" value="1">
                         <button class="plus"><i class="fas fa-plus"></i></button>
                     </div>
-                    <span>$9.99</span>
+                    <span>${{ product.price_for_qty }}</span>
                 </div>
                 <div class="link">
                     <a {% if user.is_authenticated %}href="javascript:void(0);"
@@ -152,7 +152,7 @@
                         <input type="text" placeholder="1" value="1">
                         <button class="plus"><i class="fas fa-plus"></i></button>
                     </div>
-                    <span>$9.99</span>
+                    <span>${{ product.price_for_weight }}</span>
                 </div>
                 <div class="link">
                     <a href="#">Add to card</a>
