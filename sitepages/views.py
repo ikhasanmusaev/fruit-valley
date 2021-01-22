@@ -1,6 +1,7 @@
 import datetime
 import sys
 
+import stripe
 from django.conf import settings
 from django.core.mail import send_mail
 from django.db.models import Q
@@ -111,3 +112,55 @@ def apelsin_payment(request):
             return JsonResponse(data={"status": False}, status=401)
     else:
         return JsonResponse(data={"status": False}, status=403)
+
+
+@csrf_exempt
+def stripe_config(request):
+    if request.method == 'GET':
+        stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
+        return JsonResponse(stripe_config, safe=False)
+
+
+@csrf_exempt
+def create_checkout_session(request):
+    order_id = request.POST['order_id'] if 'order_id' in request.POST else ''
+    if request.method == 'POST':
+        domain_url = 'http://' + request.get_host() + '/'
+        print(domain_url)
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        order = Order.objects.get(id=order_id)
+        try:
+            checkout_session = stripe.checkout.Session.create(
+                success_url=domain_url + 'success-stripe?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=domain_url + '',
+                payment_method_types=['card'],
+                mode='payment',
+                line_items=[
+                    {
+                        'name': '#' + str(order.id),
+                        'currency': 'usd',
+                        'quantity': 1,
+                        # 'order_id': order_id,
+                        'amount': str(order.price) + '00',
+                    }
+                ],
+                metadata={
+                    'order_id': order_id
+                }
+            )
+            return JsonResponse({'sessionId': checkout_session['id']})
+        except Exception as e:
+            return JsonResponse({'error': str(e)})
+
+
+def success_stripe(request):
+    data = stripe.checkout.Session.list_line_items(request.GET['session_id']).data
+    metadata = stripe.checkout.Session.retrieve(request.GET['session_id']).metadata
+
+    order = Order.objects.get(id=metadata['order_id'])
+
+    order.status = 'paid'
+
+    order.save()
+
+    return redirect('orders:orders-list')

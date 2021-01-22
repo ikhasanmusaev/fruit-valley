@@ -10,4 +10,7 @@ urlpatterns = [
     path('about/', views.AboutUs.as_view(), name='about'),
     path('apelsin/payment/', views.apelsin_payment),
     re_path('search/', views.SearchView.as_view(), name='search'),
+    re_path('stripe_config/', views.stripe_config, name='stripe-config'),
+    re_path('create-checkout-session/', views.create_checkout_session, name='stripe-config'),
+    re_path('success-stripe/', views.success_stripe, name='stripe-success'),
 ]

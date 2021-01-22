@@ -46,18 +46,10 @@
                                 <td class="order-total">${{ order.price }}</td>
                                 <td class="">{{ order.method_payment.name }}<br>
                                     {% if order.status == 'waiting' %}
-                                        <form method="GET" action="https://oplata.kapitalbank.uz">
-                                            <input type="hidden" name="cash" value="{% get_key order.method_payment.props %}"/>
-                                            <input type="hidden" name="redirectUrl" value="37.230.115.15/orders/"/>
-                                            <input type="hidden" name="orderId" value="{{ order.id }}"/>
-                                            <input type="hidden" name="description" value="Test"/>
-                                            <input type="hidden" name="amount" value="{% widthratio order.price 1 100 %}"/>
-                                            <button type="submit"
-                                                    style="cursor: pointer; border: 1px solid #ebebeb; border-radius: 6px; background: linear-gradient(to top, #f1f2f2, white); width: 100px; height: 54px; display: flex; align-items: center; justify-content: center;">
-                                                <img style="width: 100%;"
-                                                     src="https://oplata.kapitalbank.uz/images/apelsin-v1.png">
-                                            </button>
-                                        </form>
+                                        <button class="button is-primary" id="submitBtn"
+                                                onclick="createCheckoutStripe('{{ order.id }}')">
+                                            Purchase!
+                                        </button>
                                     {% endif %}</td>
                                 <td class="">{% if order.status == 'delivered' %} Dostavleno
                                 {% elif order.status == 'cancelled' %} Otmeneno
@@ -73,4 +65,40 @@
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block script %}
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        console.log("Sanity check!");
+        const language_code = window.location.pathname.split('/')[1]
+
+        fetch("/stripe_config/")
+            .then((result) => {
+                return result.json();
+            })
+            .then((data) => {
+                // Initialize Stripe.js
+                const stripe = Stripe(data.publicKey);
+                const url = `/${language_code}/create-checkout-session/`;
+                createCheckoutStripe = function (order_id) {
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: {
+                            order_id: order_id,
+                        },
+                        success: (data) => {
+                            console.log(1234)
+                            console.log(data)
+                            return stripe.redirectToCheckout({sessionId: data.sessionId})
+                        },
+                        error: (err) => {
+                            console.log(err)
+                        },
+                        dataType: 'json'
+                    })
+                }
+            });
+    </script>
 {% endblock %}

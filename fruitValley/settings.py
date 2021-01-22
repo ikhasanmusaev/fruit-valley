@@ -183,3 +183,6 @@ LOGIN_URL = 'buyers:login_view'
 LOGOUT_URL = 'buyers:logout_view'
 LOGIN_REDIRECT_URL = 'products:index-page'
 SOCIAL_AUTH_URL_NAMESPACE = 'buyers:social'
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51IApebDQJX9PwRMY99SYZR2mjbi7Rx3aoi4tH7jR3J7lJte7yLjOrM9mjeKs6V3luGnhd3DKFxkw7uASK4yUJSCy003sWgmSBv'
+STRIPE_SECRET_KEY = 'sk_test_51IApebDQJX9PwRMYYWkMvkM3Jrz4PxSyliuhkQ4ec1Xlbq2VElwSEX9FdpjFWSO3zbu45mfVETQCeHXUO7EtgzxV00CV5eXTxM'
