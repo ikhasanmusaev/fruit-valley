@@ -114,6 +114,9 @@ def apelsin_payment(request):
         return JsonResponse(data={"status": False}, status=403)
 
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+
 @csrf_exempt
 def stripe_config(request):
     if request.method == 'GET':
@@ -127,7 +130,6 @@ def create_checkout_session(request):
     if request.method == 'POST':
         domain_url = 'http://' + request.get_host() + '/'
         print(domain_url)
-        stripe.api_key = settings.STRIPE_SECRET_KEY
         order = Order.objects.get(id=order_id)
         try:
             checkout_session = stripe.checkout.Session.create(
