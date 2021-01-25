@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, DetailView
@@ -114,3 +115,16 @@ class OrdersListView(ListView):
 
     def get_queryset(self):
         return Order.objects.filter(buyer_id=self.request.user.id)
+
+
+@login_required
+def remove_order(request, order_id):
+    if request.method == 'POST':
+        try:
+            order = Order.objects.get(id=order_id)
+            order.status = 'cancelled'
+            order.save()
+        except:
+            return JsonResponse(data={}, status=301)
+        return JsonResponse(data={}, status=200)
+    return JsonResponse(data={}, status=301)

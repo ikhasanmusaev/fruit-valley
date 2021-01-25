@@ -93,7 +93,7 @@ function by_category(id) {
 }
 
 let addToCart = (product_id) => {
-    const amount = $('.checked .cost').children('span').text().replace('$','')
+    const amount = $('.checked .cost').children('span').text().replace('$', '')
     $.ajax({
         type: 'POST',
         url: `/${language_code}/orders/cart/`,
@@ -126,8 +126,25 @@ let removeCart = (cart_id) => {
             delete: cart_id,
         },
         success: (response, status) => {
-            console.log(response, status)
             cart.remove()
+            location.reload(true);
+        },
+        error: (xhr, error, status) => {
+            console.log(error);
+            console.log(status);
+        }
+    })
+}
+
+let removeOrder = (order_id) => {
+    $.ajax({
+        type: "POST",
+        url: `/${language_code}/orders/remove-order/${order_id}`,
+        data: {
+            csrfmiddlewaretoken: csrf_token,
+        },
+        success: (response, status) => {
+            location.reload(true);
         },
         error: (xhr, error, status) => {
             console.log(error);
@@ -173,6 +190,18 @@ let check_list = () => {
                     <td></td>
                     <td></td>
                     <td>Not Favourite Products! To <a href="/">Home</a></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+        `)
+    }
+    if (!$('tbody').children().length) {
+                $('tbody').append(`
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Products not exists! To <a href="/">Home</a></td>
                     <td></td>
                     <td></td>
                     <td></td>

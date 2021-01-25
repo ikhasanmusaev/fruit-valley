@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
     {% load path %}
@@ -31,13 +32,16 @@
                         <tbody>
                         {% for order in order_list %}
                             <tr>
-                                <td><a href="#"><i class="far fa-times-circle"></i></a></td>
+                                <td>
+                                    {% if order.status == 'waiting' %}
+                                        <a href="javascript:void(0);" onclick="removeOrder('{{ order.id }}')"><i class="far fa-times-circle"></i></a></td>
+                                    {% endif %}
                                 <td class="table-order-details">
                                     <ul>
                                         {% for product in order.products %}
                                             <li>
                                                 <a href="{% url 'products:product-detail' product.product_id %}">{{ product.name }}</a>
-                                                <span>${{ product.price }}</span>
+{#                                                <span>${{ product.price }}</span>#}
                                             </li>
                                         {% endfor %}
                                     </ul>
@@ -69,6 +73,7 @@
 
 {% block script %}
     <script src="https://js.stripe.com/v3/"></script>
+    <script src="{% static 'js/ajax-queries.js'%}"></script>
     <script>
         console.log("Sanity check!");
         const language_code = window.location.pathname.split('/')[1]
