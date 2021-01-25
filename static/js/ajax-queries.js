@@ -23,7 +23,7 @@ function product_item(id, img, name, price, rating, sale = null) {
     return `
             <div class="product">
                 <a href="/product/${id}" class="p-img">
-                    <img src="http://localhost:8000${img}" alt="">
+                    <img src="${location.protocol}//${location.host}${img}" alt="">
                 </a>
                 <div class="p-text">
                     <h3 class="p-title">
