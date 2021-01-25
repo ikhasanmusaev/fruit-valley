@@ -14,13 +14,13 @@ class Index(ListView):
     template_name = '_home_page/home.html'
 
     def get_queryset(self):
-        return Product.objects.all()[0:10]
+        return Product.objects.all()[0:8]
 
     def get_context_data(self, **kwargs):
         context = super(Index, self).get_context_data(**kwargs)
         context['slide_of_product_list'] = SlideOfProduct.objects.all()[0:6]
         context['articles'] = Article.objects.all()[0:4]
-        context['categories'] = Category.objects.filter(status=True, product__isnull=False)[0:6]
+        context['categories'] = Category.active_categories()
         context['reviews'] = Review.objects.filter(status=True)[:6]
         context['favourites'] = [i.product_id for i in FavouriteProducts.objects.filter(user_id=1)]
         return context
@@ -63,9 +63,9 @@ class ByCategory(View):
     def get(self, request, pk):
         if request.is_ajax():
             if pk != 0:
-                products = Product.objects.filter(category_id=pk)[0:9]
+                products = Product.objects.filter(category_id=pk)[0:8]
             else:
-                products = Product.objects.all()[0:9]
+                products = Product.objects.all()[0:8]
             products_list = []
             data = {}
             for i in products:

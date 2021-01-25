@@ -27,7 +27,6 @@ def carts(buyer_id):
     cart_list = []
 
     for i in obj:
-        print(i.product.rating_stars)
         cart_list.append({
             'name': i.product.name,
             'image': i.product.image.file.url,

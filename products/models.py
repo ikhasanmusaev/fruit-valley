@@ -45,7 +45,7 @@ class Product(models.Model):
         return fas_star * int(rating) + far_star * (5 - int(rating))
 
     def get_sale(self):
-        return round(int(self.price_for_qty) - int(self.price_for_qty) * self.sale / 100)
+        return round(int(float(self.price_for_qty)) - int(float(self.price_for_qty)) * self.sale / 100)
 
 
 class Category(models.Model):
