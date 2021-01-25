@@ -49,6 +49,7 @@
         </div>
     </div>
     <div class="container middle-header flex">
+        <i class="fas fa-times header-close"></i>
         <div class="logo">
             <a href="{% url 'products:index-page' %}">
                 <img src="{% static 'images/logo.png' %}" alt="">
@@ -120,3 +121,12 @@
         </div>
     </div>
 </header>
+<div class="mobile-header">
+    <i class="fas fa-bars header-open"></i>
+    <a href="#" class="logo">
+        <img src="{% static 'images/logo.png' %}" alt=""/>
+    </a>
+    <a href="#">
+        <i class="fas fa-shopping-cart"></i>
+    </a>
+</div>

@@ -59,7 +59,7 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="product-add-cart retail">
+            <div class="product-add-cart retail checked">
                 <ul>
                     <li>
                         <input type="radio" id="f-option" name="selector">
@@ -124,7 +124,7 @@
                        {% endif %}>Add to card</a>
                 </div>
             </div>
-            <div class="product-add-cart wholesale checked">
+            <div class="product-add-cart wholesale">
                 <ul>
                     <li>
                         <input type="radio" id="l-option" name="selector">
@@ -155,7 +155,10 @@
                     <span>${{ product.price_for_weight }}</span>
                 </div>
                 <div class="link">
-                    <a href="#">Add to card</a>
+                    <a  {% if user.is_authenticated %}href="javascript:void(0);"
+                       onclick="addToCart('{{ product.id }}')" {% else %}
+                       href="/account/authentication/"
+                       {% endif %}>Add to card</a>
                 </div>
             </div>
         </div>

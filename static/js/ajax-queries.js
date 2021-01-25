@@ -93,6 +93,7 @@ function by_category(id) {
 }
 
 let addToCart = (product_id) => {
+    const amount = $('.checked .cost').children('span').text().replace('$','')
     $.ajax({
         type: 'POST',
         url: `/${language_code}/orders/cart/`,
@@ -102,7 +103,7 @@ let addToCart = (product_id) => {
             csrfmiddlewaretoken: csrf_token,
             type_of_selling: 'qty', // weight or qty
             total: '1', // weight or qty
-            amount: '500',
+            amount: amount,
         },
         success: (response) => {
             location.reload(true);

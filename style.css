@@ -2101,10 +2101,7 @@ header .cart {
 .search-container {
   margin-top: 70px;
 }
-.mobile-header,
-.header-close {
-  display: none;
-}
+
 @media (min-width: 1200px) {
   .container,
   .container-sm,
@@ -2154,30 +2151,9 @@ header .cart {
   .container,
   .container-sm {
     max-width: 540px;
-    padding: 0 15px;
-    box-sizing: border-box;
-  }
-  .testimonials-carousel .item {
-    width: fit-content;
   }
   .p-products {
     grid-template-columns: 1fr;
-  }
-  .mobile-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #ffffff;
-    height: 60px;
-    padding: 0px 15px;
-  }
-  .mobile-header i {
-    color: #b86d56;
-    font-size: 20px;
-  }
-  .bottom-header .flex {
-    height: fit-content;
-    display: block;
   }
   header {
     height: 100%;
@@ -2187,9 +2163,6 @@ header .cart {
     top: 0;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    right: 500px;
-    transition: right linear 0.5s;
   }
   .middle-header {
     width: 100%;
@@ -2199,9 +2172,8 @@ header .cart {
   }
   .top-header .container.flex {
     display: grid;
-    grid-gap: 20px;
+    grid-gap: 10px;
     height: fit-content;
-    margin-top: 10px;
   }
   .top-header {
     order: 2;
@@ -2211,58 +2183,15 @@ header .cart {
   }
   .middle-header.flex {
     display: grid;
-    order: 0;
+    order: 1;
     grid-gap: 10px;
     justify-content: center;
     align-items: center;
-    position: relative;
-  }
-  .middle-header .search,
-  .middle-header .cart {
-    display: none;
   }
   .socials {
     display: none;
   }
   .main-menu li {
     display: block;
-    padding: 10px 0;
-  }
-  .main-menu li a {
-    color: #b86d56;
-    font-size: 20px;
-  }
-  .th-middle {
-    display: none;
-  }
-  .bottom-header {
-    background-color: #ffffff;
-  }
-  .top-header * {
-    font-size: 20px;
-  }
-  .th-left select {
-    font-size: 20px;
-  }
-  .header-close {
-    position: absolute;
-    right: 15px;
-    display: block;
-    top: -13px;
-    z-index: 101;
-    font-size: 20px;
-    color: #b86d56;
-  }
-  .contact-us .container {
-    grid-template-columns: 1fr;
-  }
-  header.active {
-    right: 0;
-  }
-  .p-nav {
-    display: none;
-  }
-  .products .title {
-    margin-bottom: 30px;
   }
 }

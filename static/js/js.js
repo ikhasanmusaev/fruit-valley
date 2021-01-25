@@ -1,4 +1,4 @@
-$('.product-carousel').owlCarousel({
+$(".product-carousel").owlCarousel({
     center: true,
     loop: true,
     margin: 30,
@@ -7,20 +7,20 @@ $('.product-carousel').owlCarousel({
     autoplayHoverPause: true,
     responsive: {
         0: {
-            items: 1
+            items: 1,
         },
         600: {
-            items: 4
+            items: 2,
         },
         1000: {
-            items: 4
+            items: 3,
         },
         1300: {
-            items: 5
-        }
-    }
-})
-$('.blog-carousel').owlCarousel({
+            items: 5,
+        },
+    },
+});
+$(".blog-carousel").owlCarousel({
     loop: true,
     margin: 30,
     nav: true,
@@ -29,51 +29,56 @@ $('.blog-carousel').owlCarousel({
     autoplayHoverPause: true,
     responsive: {
         0: {
-            items: 1
+            items: 1,
         },
         600: {
-            items: 2
+            items: 2,
         },
         1000: {
-            items: 3
+            items: 2,
         },
         1300: {
-            items: 3
-        }
-    }
-})
-$('.testimonials-carousel').owlCarousel({
+            items: 3,
+        },
+    },
+});
+$(".testimonials-carousel").owlCarousel({
     loop: true,
     nav: false,
     dots: true,
-    items: 1
-})
-
-$('.sub-menu ul').hide();
+    items: 1,
+});
+document.addEventListener("DOMContentLoaded", () => {
+    if ($(".sub-menu").hasClass("active")) {
+        $(".sub-menu.active").children("ul").slideToggle("100");
+        $(".sub-menu.active").find(".right").toggleClass("fa-chevron-down");
+    }
+});
+$(".sub-menu ul").hide();
 $(".sub-menu a").click(function () {
     $(this).parent(".sub-menu").children("ul").slideToggle("100");
     $(this).find(".right").toggleClass("fa-chevron-down");
-
 });
 
-$('.con-switch').find('input').click(function () {
-    $(this).parent(".con-switch").toggleClass('checked')
-    if ($('.con-switch').hasClass('checked')) {
-        $('.retail').removeClass('checked')
-        $('.wholesale').addClass('checked')
-    } else {
-        $('.wholesale').removeClass('checked')
-        $('.retail').addClass('checked')
-    }
-    if ($('.product-add-cart.retail').hasClass('checked')) {
-        $('.retail').removeClass('checked')
-        $('.wholesale').addClass('checked')
-    } else {
-        $('.wholesale').removeClass('checked')
-        $('.retail').addClass('checked')
-    }
-
-})
+$(".con-switch")
+    .find("input")
+    .click(function () {
+        $(this).parent(".con-switch").toggleClass("checked");
+        if ($(".con-switch").hasClass("checked")) {
+            $(".wholesale").removeClass("checked");
+            $(".retail").addClass("checked");
+        } else {
+            $(".retail").removeClass("checked");
+            $(".wholesale").addClass("checked");
+        }
+        if ($(".product-add-cart.retail").hasClass("checked")) {
+            $(".retail").removeClass("checked");
+            $(".wholesale").addClass("checked");
+        } else {
+            $(".wholesale").removeClass("checked");
+            $(".retail").addClass("checked");
+        }
+    });
 
 function openTab(evt, cityName) {
     var i, tabcontent, tablinks;
@@ -89,26 +94,10 @@ function openTab(evt, cityName) {
     evt.currentTarget.className += " active";
 }
 
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
+$(".header-open").click(function () {
+    $("header").toggleClass("active");
+});
 
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    if($(".sub-menu").hasClass('active')){
-        $(".sub-menu.active").children("ul").slideToggle("100");
-        $(".sub-menu.active").find(".right").toggleClass("fa-chevron-down");
-    }
+$(".header-close").click(function () {
+    $("header").toggleClass("active");
 });
