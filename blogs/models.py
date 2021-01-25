@@ -16,7 +16,7 @@ class Article(models.Model):
     status = models.IntegerField(choices=BlogStatus.choices)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
 
-    def str(self):
+    def __str__(self):
         return self.title
 
     class Meta:
@@ -36,3 +36,6 @@ class Category(models.Model):
     description = models.CharField(max_length=255, blank=True, null=True)
     slug = models.SlugField(unique=True)
     menu_position = models.PositiveSmallIntegerField(default=0)  # if 0 status=False
+
+    def __str__(self):
+        return self.name

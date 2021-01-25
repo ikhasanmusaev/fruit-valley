@@ -17,7 +17,8 @@
                 /
                 <li><a href="{% url 'products:category-list' %}">{% trans 'Categories' %}</a></li>
                 /
-                <li><a href="{% url 'products:category-detail' product.category.slug %}">{{ product.category.name }}</a></li>
+                <li><a href="{% url 'products:category-detail' product.category.slug %}">{{ product.category.name }}</a>
+                </li>
                 /
                 <li><a href="{% url 'products:product-detail' product.id %}" class="active">{{ product.name }}</a></li>
             {% else %}
@@ -38,8 +39,14 @@
                 </p>
             </div>
             <div class="ask-input">
-                <input type="text" placeholder="Ask here...">
-                <i class="fas fa-chevron-right"></i>
+                <form action="{% url 'site_pages:subscribe' %}" method="post">
+                    {% csrf_token %}
+                    <input type="email" placeholder="Ask here..." name="email" required>
+                    <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                    <button type="submit" style="cursor: pointer;">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </form>
             </div>
         </div>
     </div>

@@ -13,4 +13,5 @@ urlpatterns = [
     re_path('stripe_config/', views.stripe_config, name='stripe-config'),
     re_path('create-checkout-session/', views.create_checkout_session, name='stripe-config'),
     re_path('success-stripe/', views.success_stripe, name='stripe-success'),
+    re_path('subscribe/', views.create_subscribe, name='subscribe'),
 ]

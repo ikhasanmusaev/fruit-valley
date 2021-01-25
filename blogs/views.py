@@ -3,7 +3,6 @@ from django.views.generic import ListView, DetailView, View
 from django.views.generic.list import MultipleObjectMixin
 
 from . import models
-from .models import Category
 
 
 class ArticleListView(ListView):
@@ -12,7 +11,7 @@ class ArticleListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ArticleListView, self).get_context_data(**kwargs)
-        context['category_list'] = Category.objects.exclude(menu_position=0).order_by('menu_position')
+        context['category_list'] = models.Category.objects.exclude(menu_position=0).order_by('menu_position')
         context['recent_posts'] = self.model.objects.filter(status=2).order_by('-id')
         return context
 
@@ -28,7 +27,7 @@ class CategoryDetailView(DetailView, MultipleObjectMixin):
     def get_context_data(self, **kwargs):
         object_list = models.Article.objects.filter(category=self.get_object())
         context = super(CategoryDetailView, self).get_context_data(object_list=object_list, **kwargs)
-        context['category_list'] = Category.objects.exclude(menu_position=0).order_by('menu_position')
+        context['category_list'] = models.Category.objects.exclude(menu_position=0).order_by('menu_position')
         context['recent_posts'] = models.Article.objects.filter(status=2).order_by('-id')
         context['article_list'] = models.Article.objects.filter(status=2, category__slug=self.kwargs['slug']).order_by('-id')
         return context
@@ -45,6 +44,6 @@ class ArticleDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ArticleDetailView, self).get_context_data(**kwargs)
-        context['category_list'] = Category.objects.exclude(menu_position=0).order_by('menu_position')
+        context['category_list'] = models.Category.objects.exclude(menu_position=0).order_by('menu_position')
         context['recent_posts'] = models.Article.objects.filter(status=2).order_by('-id')
         return context

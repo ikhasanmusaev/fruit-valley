@@ -47,6 +47,9 @@ class Product(models.Model):
     def get_sale(self):
         return round(int(float(self.price_for_qty)) - int(float(self.price_for_qty)) * self.sale / 100)
 
+    def description_snippet(self):
+        return self.description[:150].replace('\n', ' ') + '...'
+
 
 class Category(models.Model):
     name = models.CharField(max_length=127)

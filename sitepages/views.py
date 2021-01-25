@@ -7,12 +7,13 @@ from django.core.mail import send_mail
 from django.db.models import Q
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, View, ListView
+from django.views.generic import TemplateView, View, ListView, CreateView
 from django.views.decorators.csrf import csrf_exempt
 
 from orders.models import Order
 from products.models import Review
 from products.models import Review, Product
+from sitepages.models import Subscribe
 
 
 class SendMail(View):
@@ -166,3 +167,14 @@ def success_stripe(request):
     order.save()
 
     return redirect('orders:orders-list')
+
+
+def create_subscribe(request):
+    if request.method == "POST":
+        try:
+            obj, created = Subscribe.objects.get_or_create(email=request.POST['email'])
+        except:
+            pass
+    if 'next' in request.POST and request.POST['next'] != '':
+        return redirect(request.POST.get('next'))
+    return redirect('products:index-page')

@@ -35,7 +35,7 @@
                 <div class="product-info">
                     {% if product.description %}
                         <p>
-                            {{ product.description|capfirst|safe }}<a href="#description">{% trans 'Read more' %} ></a>
+                            {{ product.description_snippet|capfirst|safe }}<a href="#description">{% trans 'Read more' %} ></a>
                         </p>
 
                     {% endif %}
