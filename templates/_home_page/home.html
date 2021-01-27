@@ -51,7 +51,7 @@
     <script>
         let favourites = {{ favourites }};
         favourites.forEach((element) => {
-            $(`#product-${element}`).find('.add-favourite i').addClass('liked')
+            $(`#product-${element}`).find('.add-favourite i').addClass('liked fas')
         })
 
         let submitForm = () => {

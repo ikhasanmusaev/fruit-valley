@@ -1,5 +1,5 @@
 {% extends 'base_path.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block content %}
     <section class="page-cart page-wishlist">
@@ -23,7 +23,7 @@
                                                        alt=""></div>
                         </td>
                         <td><a class="product-name" href="{% url 'products:product-detail' favouriteproduct.product.id %}">{{ favouriteproduct.product.name }}</a></td>
-                        <td class="product-price">{{ favouriteproduct.product.price_for_qty }}</td>
+                        <td class="product-price">${{ favouriteproduct.product.price_for_qty }}</td>
                         <td class="in-stock">
                             {% if favouriteproduct.product.status %}
                                 <span>In stock</span>
@@ -31,7 +31,7 @@
                                 <p>Out of stock</p>
                             {% endif %}
                         </td>
-                        <td class="wishlist-add-cart"><a href="{% url 'products:product-detail' favouriteproduct.product.id %}">Add to cart</a></td>
+                        <td class="wishlist-add-cart"><a href="{% url 'products:product-detail' favouriteproduct.product.id %}">{% trans 'Read more' %}..</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>

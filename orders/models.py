@@ -44,7 +44,7 @@ class Cart(models.Model):
         carts = self.objects.filter(buyer_id=buyer_id)
         total = 0
         for i in carts:
-            total += float(i.amount)
+            total += round(float(i.amount), 2)
         return total
 
 

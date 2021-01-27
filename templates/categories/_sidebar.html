@@ -1,8 +1,10 @@
 <nav class='animated bounceInDown'>
     <ul>
         {% for parent in parents %}
-            <li class='sub-menu'><a class="sub-menu-title">{{ parent.name }}<i
-                    class="fas fa-chevron-right right"></i></a>
+            <li class='sub-menu'>
+                <a class="sub-menu-title" href="{% url 'products:category-detail' parent.slug %}">{{ parent.name }}
+                    <i class="fas fa-chevron-right right"></i>
+                </a>
                 <ul>
                     {% for category in category_list %}
                         {% if category in parent.category_set.all %}

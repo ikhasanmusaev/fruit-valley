@@ -88,7 +88,7 @@
                             <li class="flex order-subtotal">
                                 <span>Sub Total</span>
                                 <span>${{ total }}</span>
-                                <input type="hidden" value="{{ total }}" name="total">
+                                <input type="hidden" value="{{ total|add:'10' }}" name="total">
                             </li>
                             <li class="flex order-shipping order-subtotal">
                                 <span>Shipping</span>
@@ -96,7 +96,7 @@
                             </li>
                             <li class="flex order-subtotal">
                                 <span>Total</span>
-                                <span>$434,42</span>
+                                <span>${{ total|add:'10' }}</span>
                                 <input type="hidden" name="amount" value="">
                             </li>
                         </ul>

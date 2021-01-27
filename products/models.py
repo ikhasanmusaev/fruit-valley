@@ -48,7 +48,7 @@ class Product(models.Model):
         return round(int(float(self.price_for_qty)) - int(float(self.price_for_qty)) * self.sale / 100)
 
     def description_snippet(self):
-        return self.description[:150].replace('\n', ' ') + '...'
+        return self.description[:150].replace('\n', ' ')
 
 
 class Category(models.Model):
@@ -60,7 +60,7 @@ class Category(models.Model):
     parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
 
     @staticmethod
-    def active_categories(parent=False):
+    def active_categories(is_parent=False):
         categories = Category.objects.filter(status=True, parent__isnull=False)
         ll = []
         for i in categories:
@@ -69,7 +69,7 @@ class Category(models.Model):
 
         actives = Category.objects.filter(id__in=ll)
         actives_id = [x.parent_id for x in actives]
-        if parent:
+        if is_parent:
             return Category.objects.filter(id__in=actives_id)
 
         return actives

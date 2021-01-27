@@ -32,7 +32,8 @@
             </div>
         </div>
         <div class="contact-form">
-            <form action="javascript:void(0);" class="send-mail">
+            <form action="{% url 'site_pages:send_mail' %}" class="send-mail" method="post">
+                {% csrf_token %}
                 <input type="text" placeholder="Full name" name="full_name" required>
                 <input type="email" placeholder="Email" name="email" required>
                 <input type="tel" placeholder="Phone number" name="phone" required>

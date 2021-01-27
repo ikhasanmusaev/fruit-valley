@@ -1,30 +1,36 @@
-<div class="blog-pagination">
-    <button>
-        <a {% if page_obj.has_next %} href="?page={{ page_obj.previous_page_number }}" {% endif %}>
-            <i class="fas fa-chevron-left"></i> &nbsp; Prev
-        </a>
-    </button>
-    <ul>
-        {% for i in page_obj.paginator.page_range %}
-            {% if page_obj.number == i %}
-                <li>
-                    <button class="active">{{ i }}</button>
-                </li>
-            {% endif %}
-            {% if i <= page_obj.number|add:1 and i >= page_obj.number|add:-1 and i != page_obj.number %}
-                <li>
-                    <button>
-                        <a href="?page={{ forloop.counter }}">
-                            {{ forloop.counter }}
-                        </a>
-                    </button>
-                </li>
-            {% endif %}
-        {% endfor %}
-    </ul>
-    <button>
-        <a {% if page_obj.has_next %} href="?page={{ page_obj.next_page_number }}" {% endif %}>
-            Next &nbsp;<i class="fas fa-chevron-right"></i>
-        </a>
-    </button>
-</div>
+{% if page_obj.paginator.page_range|length >= 1 %}
+    <div class="blog-pagination">
+        <button>
+            <a {% if page_obj.has_next %} href="?page={{ page_obj.previous_page_number }}" {% endif %}>
+                <i class="fas fa-chevron-left"></i> &nbsp; Prev
+            </a>
+        </button>
+        <ul>
+            {% for i in page_obj.paginator.page_range %}
+                {% if page_obj.number == i %}
+                    <li>
+                        <button class="active">
+                            <a>
+                                {{ i }}
+                            </a>
+                        </button>
+                    </li>
+                {% endif %}
+                {% if i <= page_obj.number|add:1 and i >= page_obj.number|add:-1 and i != page_obj.number %}
+                    <li>
+                        <button>
+                            <a href="?page={{ forloop.counter }}">
+                                {{ forloop.counter }}
+                            </a>
+                        </button>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <button>
+            <a {% if page_obj.has_next %} href="?page={{ page_obj.next_page_number }}" {% endif %}>
+                Next &nbsp;<i class="fas fa-chevron-right"></i>
+            </a>
+        </button>
+    </div>
+{% endif %}

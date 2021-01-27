@@ -35,7 +35,11 @@
                 <div class="product-info">
                     {% if product.description %}
                         <p>
-                            {{ product.description_snippet|capfirst|safe }}<a href="#description">{% trans 'Read more' %} ></a>
+                            {{ product.description_snippet|capfirst|safe }}<a href="#description">
+                            {% if product.description|capfirst|safe|length > 150 %}
+                                {% trans 'Read more' %}..
+                            {% endif %}
+                        </a>
                         </p>
 
                     {% endif %}
@@ -155,7 +159,7 @@
                     <span>${{ product.price_for_weight }}</span>
                 </div>
                 <div class="link">
-                    <a  {% if user.is_authenticated %}href="javascript:void(0);"
+                    <a {% if user.is_authenticated %}href="javascript:void(0);"
                        onclick="addToCart('{{ product.id }}')" {% else %}
                        href="/account/authentication/"
                        {% endif %}>Add to card</a>
@@ -220,7 +224,7 @@
         let favourite = {{ favorite|yesno:"true,false" }};
         console.log(favourite)
         if (favourite) {
-            $(`.add-favourite`).find('i').addClass('liked')
+            $(`.add-favourite`).find('i').addClass('liked fas')
         }
     </script>
 {% endblock %}

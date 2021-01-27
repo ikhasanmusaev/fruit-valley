@@ -15,6 +15,12 @@ class CartListView(ListView):
     def get_queryset(self):
         return self.model.objects.filter(buyer_id=self.request.user.id)
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CartListView, self).get_context_data(**kwargs)
+        context['total'] = round(self.model.total_of_cart(self.model, self.request.user.id))
+        return context
+
+
     def post(self, request):
         if 'delete' in request.POST:
             self.model.objects.filter(id=request.POST['delete']).delete()

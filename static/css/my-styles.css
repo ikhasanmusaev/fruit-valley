@@ -1,5 +1,5 @@
 .liked {
-  color: red;
+  color: red !important;
 }
 
 .over-over:hover {

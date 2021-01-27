@@ -18,28 +18,24 @@ from sitepages.models import Subscribe
 
 class SendMail(View):
     def post(self, request):
-        if request.is_ajax():
-            full_name = request.POST['full_name']
-            email = request.POST['email']
-            phone = request.POST['phone']
-            content = request.POST['content']
+        full_name = request.POST['full_name']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        content = request.POST['content']
 
-            subject = 'Test message'
-            from_email = settings.EMAIL_HOST_USER
-            to_list = ['hm.musaev@yandex.com', ]
+        subject = 'Test message'
+        from_email = settings.EMAIL_HOST_USER
+        to_list = ['hm.musaev@yandex.com', ]
 
-            message = ' Name: {} \n Email: {} \n Phone: {} \n Content: \n \n {}'.format(full_name,
-                                                                                        email, phone, content)
-            try:
-                send_mail(subject, message, from_email, to_list)
-            except Exception:
-                e = sys.exc_info()
-                print(e)
-                return JsonResponse(status=403, data=({'error': ''}))
-            else:
-                return JsonResponse(status=200, data={'success': 'success'})
-        else:
-            return ''
+        message = ' Name: {} \n Email: {} \n Phone: {} \n Content: \n \n {}'.format(full_name,
+                                                                                    email, phone, content)
+        # try:
+        send_mail(subject, message, from_email, to_list)
+        # except Exception:
+        #   e = sys.exc_info()
+        # print(e)
+        # return redirect('products:index-page')
+        return redirect('products:index-page')
 
 
 class ContactUs(TemplateView):

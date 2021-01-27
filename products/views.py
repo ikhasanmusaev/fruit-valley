@@ -49,10 +49,14 @@ class CategoryDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CategoryDetailView, self).get_context_data(**kwargs)
-        context['category_list'] = self.models.active_categories()
-        context['parents'] = Category.active_categories(True)
-        context['product_list'] = Product.objects.filter(category__slug=self.kwargs['slug'])
-        context['is_item'] = True
+        if Category.objects.get(slug=self.kwargs['slug']).parent:
+            context['category_list'] = self.models.active_categories()
+            context['parents'] = Category.active_categories(True)
+            context['product_list'] = Product.objects.filter(category__slug=self.kwargs['slug'])
+            context['is_item'] = True
+        else:
+            context['category_list'] = Category.active_categories().filter(parent__slug=self.kwargs['slug'])
+            context['parents'] = Category.active_categories(True).filter(slug=self.kwargs['slug'])
         return context
 
 
@@ -94,7 +98,7 @@ class ProductDetailView(DetailView):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         context['reviews'] = Review.objects.filter(product_id=self.kwargs['pk'], status=True)
         context['favorite'] = FavouriteProducts.objects.filter(product_id=self.kwargs['pk'], user_id=1).exists()
-        context['similar_products'] = Product.objects.filter(category_id=kwargs['object'].category_id)[0:4]
+        context['similar_products'] = Product.objects.filter(category_id=kwargs['object'].category_id).exclude(id=self.kwargs['pk'])[0:4]
         return context
 
 

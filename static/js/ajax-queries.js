@@ -165,15 +165,15 @@ function add_to_favourite(product_id) {
         success: (response) => {
             if ($(`#product-${product_id}`).length) {
                 if (response['created']) {
-                    $(`#product-${product_id}`).find('.add-favourite').find('i.far').toggleClass('liked');
+                    $(`#product-${product_id}`).find('.add-favourite').find('i.far').toggleClass('liked fas');
                 } else {
-                    $(`#product-${product_id}`).find('.add-favourite').find('i.far').toggleClass('liked');
+                    $(`#product-${product_id}`).find('.add-favourite').find('i.far').toggleClass('liked fas');
                 }
             }
             if (response['created']) {
-                $(`.product-img .add-favourite`).find('i').toggleClass('liked');
+                $(`.product-img .add-favourite`).find('i').toggleClass('liked fas');
             } else {
-                $(`.product-img .add-favourite`).find('i').toggleClass('liked');
+                $(`.product-img .add-favourite`).find('i').toggleClass('liked fas');
             }
         },
         error: (xhr, error, status) => {
@@ -234,31 +234,31 @@ function remove_favourite(product_id) {
     });
 }
 
-let send_form = $('.send-mail');
-
-send_form.submit((event) => {
-
-    let full_name = send_form.find('input[name=full_name]').val();
-    let email = send_form.find('input[name=email]').val();
-    let phone = send_form.find('input[name=phone]').val();
-    let content = send_form.find('textarea[name=content]').val();
-    event.preventDefault();
-    $.ajax({
-        type: "POST",
-        url: `/${language_code}/send_email`,
-        data: {
-            full_name: full_name,
-            email: email,
-            phone: phone,
-            content: content,
-            csrfmiddlewaretoken: csrf_token
-        },
-        dataType: 'json',
-        success: (response) => {
-
-        },
-        error: (xhr, error, status) => {
-
-        }
-    })
-})
+// let send_form = $('.send-mail');
+//
+// send_form.submit((event) => {
+//
+//     let full_name = send_form.find('input[name=full_name]').val();
+//     let email = send_form.find('input[name=email]').val();
+//     let phone = send_form.find('input[name=phone]').val();
+//     let content = send_form.find('textarea[name=content]').val();
+//     event.preventDefault();
+//     $.ajax({
+//         type: "POST",
+//         url: `/${language_code}/send_email`,
+//         data: {
+//             full_name: full_name,
+//             email: email,
+//             phone: phone,
+//             content: content,
+//             csrfmiddlewaretoken: csrf_token
+//         },
+//         dataType: 'json',
+//         success: (response) => {
+//
+//         },
+//         error: (xhr, error, status) => {
+//
+//         }
+//     })
+// })
