@@ -55,10 +55,10 @@
                                             Purchase!
                                         </button>
                                     {% endif %}</td>
-                                <td class="">{% if order.status == 'delivered' %} Dostavleno
-                                {% elif order.status == 'cancelled' %} Otmeneno
-                                {% elif order.status == 'waiting' %} Jdet
-                                {% elif order.status == 'paid' %} Oplacheno
+                                <td class="">{% if order.status == 'delivered' %} Доставлен
+                                {% elif order.status == 'cancelled' %} Отменен
+                                {% elif order.status == 'waiting' %} Ждёт
+                                {% elif order.status == 'paid' %} Оплачен
                                 {% endif %} </td>
                             </tr>
 
@@ -76,7 +76,7 @@
     <script src="{% static 'js/ajax-queries.js'%}"></script>
     <script>
         console.log("Sanity check!");
-        const language_code = window.location.pathname.split('/')[1]
+        {#const language_code = window.location.pathname.split('/')[1];#}
 
         fetch("/stripe_config/")
             .then((result) => {

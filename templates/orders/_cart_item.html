@@ -3,12 +3,17 @@
     <div class="cart-img"><img src="http://{{ request.get_host }}{{ cart.product.image.file.url }}" alt=""></div>
 </td>
 <td><a class="product-name" href="{% url 'products:product-detail' cart.product.id %}">{{ cart.product.name }}</a></td>
-<td class="product-price">${{ cart.amount }}</td>
+<td class="product-price">
+    {% if cart.type_of_selling == 'qty' %}
+        ${{ cart.product.price_for_qty }}
+    {% elif cart.type_of_selling == 'weight' %}
+        ${{ cart.product.price_for_weight }}
+    {% endif %}</td>
 <td class="product-add">
     <div class="cost">
-        <button class="minus"><i class="fas fa-minus"></i></button>
-        <input type="text" placeholder="1" value="{{ cart.total }}">
-        <button class="plus"><i class="fas fa-plus"></i></button>
+        <button class="minus" onclick="addOrSubtractPrice('{{ cart.id }}', false)"><i class="fas fa-minus"></i></button>
+        <input type="text" placeholder="1" value="{{ cart.total }}" class="quantity__input">
+        <button class="plus" onclick="addOrSubtractPrice('{{ cart.id }}', true)"><i class="fas fa-plus"></i></button>
     </div>
 </td>
 <td class="product-total">${{ cart.amount }}</td>

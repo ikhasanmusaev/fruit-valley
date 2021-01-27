@@ -799,6 +799,7 @@ footer .container {
 }
 .questions input {
   width: 300px;
+  height: 16px;
   background: #ffffff;
   border-radius: 8px;
   border: none;
@@ -811,10 +812,18 @@ footer .container {
 }
 .questions .ask-input i {
   position: absolute;
-  right: 20px;
-  top: 18px;
+  /*right: 20px;*/
+  /*top: 18px;*/
   font-size: 12px;
   color: #999999;
+}
+
+.questions .ask-input button{
+  position: absolute;
+  right: 20px;
+  top: 16px;
+  border: none;
+  /*height: 16px;*/
 }
 
 /* *****page category***** */

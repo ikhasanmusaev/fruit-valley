@@ -67,9 +67,11 @@ $(".con-switch")
         if ($(".con-switch").hasClass("checked")) {
             $(".wholesale").removeClass("checked");
             $(".retail").addClass("checked");
+            $('.con-switch #check').attr('checked', true);
         } else {
             $(".retail").removeClass("checked");
             $(".wholesale").addClass("checked");
+            $('.con-switch #check').attr('checked', false);
         }
         if ($(".product-add-cart.retail").hasClass("checked")) {
             $(".retail").removeClass("checked");
@@ -95,20 +97,20 @@ function openTab(evt, cityName) {
 }
 
 function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
+    document.getElementById("myDropdown").classList.toggle("show");
 }
 
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
+window.onclick = function (event) {
+    if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
     }
-  }
 }
 
 
@@ -119,3 +121,55 @@ $(".header-open").click(function () {
 $(".header-close").click(function () {
     $("header").toggleClass("active");
 });
+
+$(document).ready(function () {
+    const minus = $('.quantity__minus');
+    const plus = $('.quantity__plus');
+    const input = $('.quantity__input');
+    minus.click(function (e) {
+        e.preventDefault();
+        var value = input.val();
+        if (value > 1) {
+            value--;
+        }
+        input.val(value);
+    });
+
+    plus.click(function (e) {
+        e.preventDefault();
+        var value = input.val();
+        value++;
+        input.val(value);
+    })
+
+});
+
+let addOrSubtract = (element, price) => {
+    return element.text('$'.concat(String(Math.round((Number(element.text().replace('$', '')) + Number(price)) * 100) / 100)))
+}
+
+let addOrSubtractPrice = (id, plus = true) => {
+    let input = $(`#cart-item-${id} .quantity__input`);
+    let price = $(`#cart-item-${id} .product-price`).text().replace('$', '');
+    let product_total = $(`#cart-item-${id} .product-total`);
+    let subtotal = $('.subtotal p span');
+    let total = $('.total p span');
+
+    if (plus) {
+        let value = input.val();
+        value++;
+        input.val(value);
+        addOrSubtract(product_total, price);
+        addOrSubtract(subtotal, price);
+        addOrSubtract(total, price)
+    } else {
+        let value = input.val();
+        if (value > 1) {
+            value--;
+            input.val(value);
+            addOrSubtract(product_total, -price);
+            addOrSubtract(subtotal, -price);
+            addOrSubtract(total, -price)
+        }
+    }
+}

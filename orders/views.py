@@ -20,7 +20,6 @@ class CartListView(ListView):
         context['total'] = round(self.model.total_of_cart(self.model, self.request.user.id))
         return context
 
-
     def post(self, request):
         if 'delete' in request.POST:
             self.model.objects.filter(id=request.POST['delete']).delete()
@@ -32,9 +31,7 @@ class CartListView(ListView):
                 obj, created = Cart.objects.update_or_create(
                     buyer_id=request.user.id,
                     product_id=product.id,
-                    defaults={
-                        'type_of_selling': request.POST['type_of_selling']
-                    }
+                    type_of_selling='weight' if not request.POST['type_of_selling'] == 'false' else 'qty',
                 )
 
                 if not created:
@@ -64,8 +61,10 @@ class CheckoutOrderView(ListView):
         context = super(CheckoutOrderView, self).get_context_data(**kwargs)
         context['total'] = round(self.model.total_of_cart(self.model, self.request.user.id))
         context['payment_methods'] = PaymentMethods.objects.filter(status=True)
-        context['buyer'] = buyers.Buyer.objects.filter(user_id=self.request.user.id)[0] if buyers.Buyer.objects.filter(user_id=self.request.user.id).exists() else None
-        context['address'] = buyers.Address.objects.filter(user_id=self.request.user.id)[0] if buyers.Address.objects.filter(user_id=self.request.user.id).exists() else None
+        context['buyer'] = buyers.Buyer.objects.filter(user_id=self.request.user.id)[0] if buyers.Buyer.objects.filter(
+            user_id=self.request.user.id).exists() else None
+        context['address'] = buyers.Address.objects.filter(user_id=self.request.user.id)[
+            0] if buyers.Address.objects.filter(user_id=self.request.user.id).exists() else None
         return context
 
     def post(self, request):
@@ -120,7 +119,7 @@ class OrdersListView(ListView):
     template_name = 'orders/orders_list.html'
 
     def get_queryset(self):
-        return Order.objects.filter(buyer_id=self.request.user.id)
+        return Order.objects.filter(buyer_id=self.request.user.id).order_by('-id')
 
 
 @login_required

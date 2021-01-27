@@ -93,7 +93,10 @@ function by_category(id) {
 }
 
 let addToCart = (product_id) => {
-    const amount = $('.checked .cost').children('span').text().replace('$', '')
+    const amount = $('.checked .cost').children('span').text().replace('$', '');
+    let total = $('.quantity__input').val();
+    let checked = $('.con-switch #check').is(':checked')
+    console.log(checked)
     $.ajax({
         type: 'POST',
         url: `/${language_code}/orders/cart/`,
@@ -101,9 +104,9 @@ let addToCart = (product_id) => {
         data: {
             product_id: product_id,
             csrfmiddlewaretoken: csrf_token,
-            type_of_selling: 'qty', // weight or qty
-            total: '1', // weight or qty
-            amount: amount,
+            type_of_selling: checked, // weight or qty
+            total: total, // weight or qty
+            amount: Number(amount) * Number(total),
         },
         success: (response) => {
             location.reload(true);
