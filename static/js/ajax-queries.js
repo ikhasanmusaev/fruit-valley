@@ -50,11 +50,11 @@ function product_item(id, img, name, price, rating, sale = null) {
                     </h3>
                     <p class="cost">
             `.concat(sale != price ?
-        `<span>${sale}</span>
-             <span class="p-discount">${price}</span>
+        `<span>$${sale}</span>
+             <span class="p-discount">$${price}</span>
             ` :
         `
-            <span>${price}</span>
+            <span>$${price}</span>
             `,
         `
                     </p>
@@ -66,7 +66,7 @@ function product_item(id, img, name, price, rating, sale = null) {
                             <i class="far fa-heart"></i>
                         </a>
                         <a href="/product/${id}" class="add-card">
-                            Read more
+                            Read more..
                         </a>
                         <a href="#" class="open">
                             <i class="far fa-heart"></i>

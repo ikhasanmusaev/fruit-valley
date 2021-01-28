@@ -34,10 +34,11 @@ class CategoryListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(CategoryListView, self).get_context_data(**kwargs)
         context['parents'] = Category.active_categories(True)
+        context['is_list'] = True
         return context
 
     def get_queryset(self):
-        return Category.active_categories()
+        return Category.active_categories().filter(parent_id=2)
 
 
 class CategoryDetailView(DetailView):
@@ -56,7 +57,7 @@ class CategoryDetailView(DetailView):
             context['is_item'] = True
         else:
             context['category_list'] = Category.active_categories().filter(parent__slug=self.kwargs['slug'])
-            context['parents'] = Category.active_categories(True).filter(slug=self.kwargs['slug'])
+            context['parents'] = Category.active_categories(True)
         return context
 
 

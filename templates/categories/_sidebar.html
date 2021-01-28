@@ -1,7 +1,11 @@
 <nav class='animated bounceInDown'>
     <ul>
         {% for parent in parents %}
-            <li class='sub-menu'>
+            <li class='sub-menu
+            {% if parent.slug.lower == request.resolver_match.kwargs.slug|lower %}
+            	active
+            {% endif %}
+            	 {% if forloop.counter == 1 and is_list %} active {% endif %}'>
                 <a class="sub-menu-title" href="{% url 'products:category-detail' parent.slug %}">{{ parent.name }}
                     <i class="fas fa-chevron-right right"></i>
                 </a>
