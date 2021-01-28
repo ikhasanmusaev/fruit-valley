@@ -68,10 +68,12 @@ $(".con-switch")
             $(".wholesale").removeClass("checked");
             $(".retail").addClass("checked");
             $('.con-switch #check').attr('checked', true);
+            $('#product_check_input').val('weight');
         } else {
             $(".retail").removeClass("checked");
             $(".wholesale").addClass("checked");
             $('.con-switch #check').attr('checked', false);
+            $('#product_check_input').val('qty');
         }
         if ($(".product-add-cart.retail").hasClass("checked")) {
             $(".retail").removeClass("checked");
@@ -122,31 +124,47 @@ $(".header-close").click(function () {
     $("header").toggleClass("active");
 });
 
+let addOrSubtract = (element, price) => {
+    return element.text('$'.concat(String(Math.round((Number(element.text().replace('$', '')) + Number(price)) * 100) / 100)))
+}
+
+
 $(document).ready(function () {
     const minus = $('.quantity__minus');
     const plus = $('.quantity__plus');
-    const input = $('.quantity__input');
+
     minus.click(function (e) {
+        const amount = $('.checked .cost span.cost-default').text().replace('$', '');
+        const input = $('.checked .quantity__input');
+        let cost = $('.checked .cost span.cost-changing');
+
         e.preventDefault();
         var value = input.val();
         if (value > 1) {
             value--;
+            input.val(value);
+            $('#product_total_input').val(value)
+            addOrSubtract(cost, -amount)
+            $('#product_amount_input').val($('.checked .cost span.cost-changing').text().replace('$', ''))
         }
-        input.val(value);
     });
 
     plus.click(function (e) {
+        const amount = $('.checked .cost span.cost-default').text().replace('$', '');
+        const input = $('.checked .quantity__input');
+        let cost = $('.checked .cost span.cost-changing');
+
         e.preventDefault();
         var value = input.val();
         value++;
         input.val(value);
+        $('#product_total_input').val(value)
+        addOrSubtract(cost, +amount)
+        $('#product_amount_input').val($('.checked .cost span.cost-changing').text().replace('$', ''))
     })
 
 });
 
-let addOrSubtract = (element, price) => {
-    return element.text('$'.concat(String(Math.round((Number(element.text().replace('$', '')) + Number(price)) * 100) / 100)))
-}
 
 let addOrSubtractPrice = (id, plus = true) => {
     let input = $(`#cart-item-${id} .quantity__input`);

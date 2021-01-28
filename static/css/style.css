@@ -49,6 +49,53 @@ ul li {
   margin-top: 70px;
 }
 
+/*=========Modals--------------------------*/
+.success-modal {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    transition: all 0.8s;
+    background: rgba(148, 228, 106, 0.8);
+    padding: 5px 20px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font-size: 14px;
+    color: #012343;
+}
+
+.success-modal sup, .error-modal sup {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.error-modal {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    transition: all 0.8s;
+    background: rgba(255, 0, 52, 0.8);
+    padding: 5px 20px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font-size: 14px;
+    color: #012343;
+}
+
+.sb{
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    display: none;
+    font-size: 25px;
+    color: rgb(148, 228, 106);
+}
+
+/*=========Modals--------------------------*/
+
 /* *****header***** */
 
 header {

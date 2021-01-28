@@ -1,10 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.views.generic import ListView, CreateView, DetailView
 
 from buyers import models as buyers
-from products.models import Product, FavouriteProducts
+from products.models import Product, FavouriteProducts, Review
 from .models import Cart, PaymentMethods, Order
 
 
@@ -27,27 +27,47 @@ class CartListView(ListView):
 
         if 'product_id' in request.POST:
             product = Product.objects.get(id=request.POST['product_id'])
+            reviews = Review.objects.filter(product_id=product.id, status=True)
+            favorite = FavouriteProducts.objects.filter(product_id=product.id, user_id=1).exists()
+            similar_products = Product.objects.filter(category_id=product.category_id).exclude(
+                id=product.id)[0:4]
             try:
                 obj, created = Cart.objects.update_or_create(
                     buyer_id=request.user.id,
                     product_id=product.id,
-                    type_of_selling='weight' if not request.POST['type_of_selling'] == 'false' else 'qty',
+                    type_of_selling=request.POST['type_of_selling'],
                 )
 
                 if not created:
                     obj.total += int(request.POST['total'])
-                    obj.amount = str(int(obj.amount) + int(request.POST['amount']))
+                    obj.amount = str(int((float(obj.amount))) + int(float(request.POST['amount'])))
                     obj.save()
                 else:
-                    obj.total = int(request.POST['total']) if int(request.POST['total']) else 1
+                    obj.total = int(float(request.POST['total'])) if int(float(request.POST['total'])) else 1
                     obj.amount = request.POST['amount']
                     obj.save()
 
-                return JsonResponse(data={}, status=200)
+                return render(request, '_product_page/product_detail.html',
+                              {
+                                  'product': product,
+                                  'reviews': reviews,
+                                  'similar_products': similar_products,
+                                  'favorite': favorite,
+                                  'status_response': 201
+                              },
+                              )
             except:
-                return HttpResponse(status=403)
+                return render(request, '_product_page/product_detail.html',
+                              {
+                                  'product': product,
+                                  'reviews': reviews,
+                                  'similar_products': similar_products,
+                                  'favorite': favorite,
+                                  'status_response': 403
+                              },
+                              )
 
-        return HttpResponse(status=403)
+        return redirect('products:index-page')
 
 
 class CheckoutOrderView(ListView):
@@ -116,7 +136,7 @@ class CheckoutOrderView(ListView):
 
 class OrdersListView(ListView):
     model = Order
-    template_name = 'orders/orders_list.html'
+    template_name = f'orders/orders_list.html'
 
     def get_queryset(self):
         return Order.objects.filter(buyer_id=self.request.user.id).order_by('-id')

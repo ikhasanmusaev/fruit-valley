@@ -119,13 +119,15 @@
                         <input type="text" placeholder="1" value="1" class="quantity__input">
                         <button class="plus quantity__plus"><i class="fas fa-plus"></i></button>
                     </div>
-                    <span>${{ product.price_for_qty }}</span>
+                    <span class="cost-changing">${{ product.price_for_qty }}</span>
+                    <span hidden class="cost-default">${{ product.price_for_qty }}</span>
                 </div>
-                <div class="link">
-                    <a {% if user.is_authenticated %}href="javascript:void(0);"
-                       onclick="addToCart('{{ product.id }}')" {% else %}
-                       href="/account/authentication/"
-                       {% endif %}>Add to card</a>
+                <div class="link" onclick="submitForm($('#product_form'))" style="cursor: pointer">
+                    <a>Add to card</a>
+                    {#                    <a {% if user.is_authenticated %}href="javascript:void(0);"#}
+                    {#                       onclick="addToCart('{{ product.id }}')" {% else %}#}
+                    {#                       href="/account/authentication/"#}
+                    {#                       {% endif %}>Add to card</a>#}
                 </div>
             </div>
             <div class="product-add-cart wholesale">
@@ -156,15 +158,23 @@
                         <input type="text" placeholder="1" value="1" class="quantity__input">
                         <button class="plus  quantity__plus"><i class="fas fa-plus"></i></button>
                     </div>
-                    <span>${{ product.price_for_weight }}</span>
+                    <span class="cost-changing">${{ product.price_for_weight }}</span>
+                    <span hidden class="cost-default">${{ product.price_for_weight }}</span>
                 </div>
-                <div class="link">
-                    <a {% if user.is_authenticated %}href="javascript:void(0);"
-                       onclick="addToCart('{{ product.id }}')" {% else %}
-                       href="/account/authentication/"
-                       {% endif %}>Add to card</a>
+                <div class="link" onclick="submitForm($('#product_form'))" style="cursor: pointer">
+                    <a>Add to card</a>
                 </div>
             </div>
+            <form action="{% if user.is_authenticated %}{% url 'orders:cart-list' %}{% else %}{% url 'buyers:login-view' %}{% endif %}"
+                  id="product_form" method="post">
+                {% csrf_token %}
+                <input type="text" name="type_of_selling" id="product_check_input" hidden value="qty">
+                <input type="number" name="product_id" id="product_id_input" value="{{ product.id }}" hidden>
+                <input type="text" name="amount" value="{{ product.price_for_qty }}" id="product_amount_input"
+                       hidden>
+                <input type="number" name="total" value="1" id="product_total_input" hidden>
+            </form>
+
         </div>
     </section>
     <section class="description" id="description">
@@ -226,5 +236,22 @@
         if (favourite) {
             $(`.add-favourite`).find('i').addClass('liked fas')
         }
+
+        let variable = ({{ status_response }}) ? {{ status_response }} : false
+
+        if (variable) {
+            if (variable === 201) {
+                modalSuccess.css({
+                    'left': '20%',
+                });
+                hidden(5000, modalSuccess).then();
+            } else {
+                modalError.css({
+                    'left': '20%',
+                });
+                hidden(5000, modalError).then();
+            }
+        }
+
     </script>
 {% endblock %}

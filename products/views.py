@@ -91,7 +91,7 @@ class ProductDetailView(DetailView):
     template_name = '_product_page/product_detail.html'
 
     def get_queryset(self):
-        product = Product.objects.get(id=self.kwargs['pk'])
+        # product = Product.objects.get(id=self.kwargs['pk'])
         return Product.objects.filter(id=self.kwargs['pk'])
 
     def get_context_data(self, **kwargs):

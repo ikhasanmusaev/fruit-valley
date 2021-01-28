@@ -1,5 +1,24 @@
 let product_list = $('.p-products');
 const language_code = window.location.pathname.split('/')[1]
+let modalSuccess = $('.success-modal');
+let modalError = $('.error-modal');
+
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function hidden(delay1, variable) {
+    await sleep(delay1);
+    variable.css({
+        'top': '-40%'
+    });
+    await sleep(900);
+    variable.css({
+        'top': '0',
+        'left': '-100%',
+    });
+}
 
 function getCookie(name) {
     let cookieValue = null;
@@ -108,15 +127,46 @@ let addToCart = (product_id) => {
             total: total, // weight or qty
             amount: Number(amount) * Number(total),
         },
-        success: (response) => {
-            location.reload(true);
+        beforeSend: (() => {
+            $('.sb').show();
+        }),
+        success: (data) => {
+            $('.sb').hide();
+            modalSuccess.css({
+                'left': '20%',
+            });
+            hidden(5000, modalSuccess).then();
         },
-        error: (xhr, error, status) => {
-            console.log(error);
-            console.log(status);
+        error: (e) => {
+            $('.sb').hide();
+            modalError.css({
+                'left': '20%',
+            });
+            hidden(5000, modalError).then();
         }
+
+        // success: (response) => {
+        //     location.reload(true);
+        // },
+        // error: (xhr, error, status) => {
+        //     console.log(error);
+        //     console.log(status);
+        // }
     })
 }
+
+$('.success-modal sup').on('click', (e) => {
+    hidden(200, modalSuccess).then();
+});
+
+$('.error-modal sup').on('click', (e) => {
+    hidden(200, modalError).then();
+})
+
+function submitForm(element) {
+    element.submit()
+}
+
 
 let removeCart = (cart_id) => {
     let cart = $(`#cart-item-${cart_id}`);
@@ -200,7 +250,7 @@ let check_list = () => {
         `)
     }
     if (!$('tbody').children().length) {
-                $('tbody').append(`
+        $('tbody').append(`
                 <tr>
                     <td></td>
                     <td></td>
