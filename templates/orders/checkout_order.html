@@ -80,7 +80,7 @@
                             {% for cart in cart_list %}
                                 <li class="flex order-product">
                                     <span>{{ cart.product.name }}</span>
-                                    <span>{{ cart.amount }}</span>
+                                    <span>${{ cart.amount }}</span>
                                     <input type="hidden" name="cart-{{ forloop.counter }}" value="{{ cart.id }}">
                                 </li>
                             {% endfor %}

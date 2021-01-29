@@ -165,7 +165,7 @@
                     <a>Add to card</a>
                 </div>
             </div>
-            <form action="{% if user.is_authenticated %}{% url 'orders:cart-list' %}{% else %}{% url 'buyers:login-view' %}{% endif %}"
+            <form action="{% if user.is_authenticated %}{% url 'orders:cart-list' %}{% else %}{% url 'buyers:login_view' %}{% endif %}"
                   id="product_form" method="post">
                 {% csrf_token %}
                 <input type="text" name="type_of_selling" id="product_check_input" hidden value="qty">
