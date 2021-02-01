@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, reverse
@@ -32,6 +34,11 @@ class CartListView(ListView):
             similar_products = Product.objects.filter(category_id=product.category_id).exclude(
                 id=product.id)[0:4]
             try:
+                if request.POST['type_of_selling'] == 'qty':
+                    amount = int(request.POST['total']) * float(product.price_for_qty)
+                else:
+                    amount = int(request.POST['total']) * float(product.price_for_weight)
+
                 obj, created = Cart.objects.update_or_create(
                     buyer_id=request.user.id,
                     product_id=product.id,
@@ -40,11 +47,11 @@ class CartListView(ListView):
 
                 if not created:
                     obj.total += int(request.POST['total'])
-                    obj.amount = str(int((float(obj.amount))) + int(float(request.POST['amount'])))
+                    obj.amount = str(int((float(obj.amount))) + int(amount))
                     obj.save()
                 else:
                     obj.total = int(float(request.POST['total'])) if int(float(request.POST['total'])) else 1
-                    obj.amount = request.POST['amount']
+                    obj.amount = amount
                     obj.save()
 
                 return render(request, '_product_page/product_detail.html',
@@ -125,7 +132,7 @@ class CheckoutOrderView(ListView):
                 'product_id': i.product.id,
                 'name': i.product.name,
                 'price': i.amount,
-                'cart_id': i.id,
+                # 'cart_id': i.id,
             })
 
         order.products = products
@@ -153,3 +160,24 @@ def remove_order(request, order_id):
             return JsonResponse(data={}, status=301)
         return JsonResponse(data={}, status=200)
     return JsonResponse(data={}, status=301)
+
+
+@login_required
+def update_cart(request):
+    if request.method == 'POST':
+        # try:
+        cart_from_req = json.loads(request.POST['cart'])
+        cart = Cart.objects.filter(buyer_id=request.user.id)
+
+        for i in cart_from_req:
+            cart_i = cart.get(id=i['id'])
+
+            cart_i.total = float(i['total'])
+            cart_i.amount = i['amount']
+
+            cart_i.save()
+        # except:
+        #     return JsonResponse(data={}, status=301)
+        return JsonResponse(data={}, status=202)
+    return JsonResponse(data={}, status=301)
+

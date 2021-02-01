@@ -287,6 +287,38 @@ function remove_favourite(product_id) {
     });
 }
 
+let updateCart = () => {
+    // let carts = $("#"+"cart\-item\-\d+")
+    let carts = $("tr[id^=cart-item-" + "]")
+
+    let data = $.map(carts, (element) => {
+        let data_item = {}
+        data_item['id'] = $(element).attr('data-id')
+        data_item['total'] = $(element).find('.quantity__input').val()
+        data_item['amount'] = $(element).find('.product-total').text().replace('$', '')
+        return data_item
+    })
+
+    let subtotal = $('.subtotal p').text().replace('$', '')
+
+    $.ajax({
+        type: "POST",
+        url: `/${language_code}/orders/update-cart/`,
+        data: {
+            cart: JSON.stringify(data),
+            csrfmiddlewaretoken: csrf_token,
+        },
+        dataType: 'json',
+        success: (response) => {
+            window.location.href = `/orders/checkout/`;
+        },
+
+        error: (xhr, error, status) => {
+            console.log(error);
+        }
+    })
+}
+
 // let send_form = $('.send-mail');
 //
 // send_form.submit((event) => {

@@ -15,7 +15,7 @@
                 </thead>
                 <tbody>
                 {% for cart in cart_list %}
-                    <tr id="cart-item-{{ cart.id }}">
+                    <tr id="cart-item-{{ cart.id }}" data-id="{{ cart.id }}">
                         {% include 'orders/_cart_item.html' %}
                     </tr>
                 {% endfor %}
@@ -48,7 +48,8 @@
                         <p>total <span>${{ total }}</span></p>
                     </div>
                     <div class="go-checkout">
-                        <a href="{% url 'orders:order-checkout' %}">Proceed to checkout</a>
+{#                        <a href="{% url 'orders:order-checkout' %}">Proceed to checkout</a>#}
+                        <a onclick="updateCart()">Proceed to checkout</a>
                     </div>
                 </div>
             </div>
