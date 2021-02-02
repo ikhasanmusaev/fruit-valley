@@ -17,7 +17,7 @@ class Order(models.Model):
         PAID = 'paid'
         NOT_EXISTS = 'not_exists'
     buyer = models.ForeignKey(User, on_delete=models.CASCADE)
-    price = models.PositiveSmallIntegerField()
+    price = models.IntegerField()
     # qty = models.PositiveSmallIntegerField(default=1)
     products = models.JSONField(null=True, blank=True)
     # type_of_selling = models.CharField(choices=TypeOfSelling.choices, blank=True, max_length=15)  # weight or wty

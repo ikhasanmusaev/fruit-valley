@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<form action="{% url 'buyers:activate' uid token %}">
-    {% csrf_token %}
-    {{ form }}
-<button type="submit">Change</button>
+{% extends 'base_path.html' %}
 
-</form>
-</body>
+
+{% block content %}
+    <form action="{% url 'buyers:activate' uid token %}">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Change</button>
+    </form>
+{% endblock %}

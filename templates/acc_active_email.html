@@ -1,5 +1,9 @@
-{% autoescape off %}
-Hi {{ user.username }},
-Please click on the link to confirm your registration,
-http://{{ domain }}{% url 'buyers:activate' uid=uid token=token %}
-{% endautoescape %}
+{% extends 'base_path.html' %}
+
+{% block content %}
+    {% autoescape off %}
+        Hi {{ user.username }},
+        Please click on the link to confirm your registration,
+        http://{{ domain }}{% url 'buyers:activate' uid=uid token=token %}
+    {% endautoescape %}
+{% endblock %}
