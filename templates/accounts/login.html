@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n path %}
 
 {% block content %}
 
@@ -7,16 +7,22 @@
         <div class="container">
             <div class="login">
                 <h1 class="login-title">
-                    Login
+                    {% trans "Login" %}
                 </h1>
+                {% if form.errors %}
+                    <span class="error-text">{% get_error form.errors as errors %}</span>
+                {% endif %}
+                {% for error in errors %}
+                    {{ error }}
+                    <br>
+                    <br>
+                {% endfor %}
                 <form action="" method="POST">
                     {% csrf_token %}
-                    <label for="{{ login_form.username.id_for_label }}">{{ login_form.username.label }}</label>
-                    {{ login_form.username }}
-
-                    <label for="{{ login_form.password.id_for_label }}">{{ login_form.password.label }}</label>
-                    {{ login_form.password }}
-                    <input type="hidden" name="signin_" value="signin_">
+                    <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                    {{ form.username }}
+                    <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                    {{ form.password }}
                     <div class="social-login">
                         <a href="{% url 'buyers:social:begin' 'google-oauth2' %}"><img
                                 src="{% static 'images/google.png' %}" alt=""> Login with google</a>
@@ -25,27 +31,15 @@
                     </div>
                     <div style="display: flex; align-items: center; justify-content: space-between;">
                         <button type="submit">Login</button>
-                        <a href="{% url 'buyers:password_reset' %}" style="text-decoration:underline; color:#B86D56;">Lost
-                            your password?</a>
+                        <div>
+                            <a href="{% url 'buyers:signup_view' %}" style="text-decoration:underline; color:#B86D56;">Sign
+                                Up</a>
+                            &nbsp;&nbsp;
+                            <a href="{% url 'buyers:password_reset' %}"
+                               style="text-decoration:underline; color:#B86D56;">Lost
+                                your password?</a>
+                        </div>
                     </div>
-                </form>
-
-            </div>
-            <div class="register">
-                <h1 class="login-title">
-                    Register
-                </h1>
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    <label for="{{ sign_form.email.id_for_label }}">{{ sign_form.email.label }}</label>
-                    {{ sign_form.email }}
-
-                    <label for="{{ sign_form.password1.id_for_label }}">{{ sign_form.password1.label }}</label>
-                    {{ sign_form.password1 }}
-                    <label for="{{ sign_form.password2.id_for_label }}">{{ sign_form.password2.label }}</label>
-                    {{ sign_form.password2 }}
-                    <input type="hidden" name="signup_" value="signup_">
-                    <button type="submit">Register</button>
                 </form>
             </div>
         </div>

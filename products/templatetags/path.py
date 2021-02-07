@@ -47,3 +47,11 @@ def get_title(url):
 @register.simple_tag
 def get_key(string):
     return json.loads(string)['cash']
+
+
+@register.simple_tag
+def get_error(dict_i: dict):
+    errors = []
+    for i in dict_i.keys():
+        errors.append(dict_i[i][0])
+    return errors

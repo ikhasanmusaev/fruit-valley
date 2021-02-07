@@ -1,6 +1,8 @@
 from django import forms
+from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 from buyers.models import User
 
@@ -16,7 +18,7 @@ class SignupForm(UserCreationForm):
         model = User
         fields = ('email', 'password1', 'password2')
 
-    username = forms.EmailInput()
+    email = forms.EmailInput()
     password1 = forms.PasswordInput()
     password2 = forms.PasswordInput()
 

@@ -1,8 +1,11 @@
+from django.contrib import messages
 from django.template.loader import render_to_string
-from django.views import View
+from django.urls import reverse_lazy
+from django.views import View, generic
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView, TemplateView
+from django.contrib.auth import views as auth_views
 
 from .forms import SignupForm, LoginForm
 from django.contrib.sites.shortcuts import get_current_site
@@ -12,7 +15,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .models import User, Buyer, Address
 from .tokens import account_activation_token
 from django.core.mail import EmailMessage
-from django.contrib.auth import login, update_session_auth_hash, logout
+from django.contrib.auth import login, update_session_auth_hash, logout, authenticate
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm, AuthenticationForm
 
 
@@ -21,47 +24,100 @@ def logout_view(request):
     return redirect('products:index-page')
 
 
-class Signup(View):
+# class Signup(View):
+#
+#     def __init__(self, **kwargs):
+#         super().__init__(**kwargs)
+#         self.signup_form = SignupForm()
+#         self.login_form = LoginForm()
+#
+#     def get(self, request):
+#         return render(request, 'accounts/login.html', {'sign_form': self.signup_form, 'login_form': self.login_form})
+#
+#     def post(self, request):
+#         if 'signup_' in request.POST:
+#             form = SignupForm(request.POST)
+#             if form.is_valid():
+#                 user = form.save(commit=False)
+#                 user.is_active = False
+#                 user.save()
+#                 current_site = get_current_site(request)
+#                 mail_subject = 'Activate your blog account.'
+#                 message = render_to_string('acc_active_email.html', {
+#                     'user': user,
+#                     'domain': current_site.domain,
+#                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+#                     'token': account_activation_token.make_token(user),
+#                 })
+#                 to_email = form.cleaned_data.get('email')
+#                 email = EmailMessage(
+#                     mail_subject, message, to=[to_email]
+#                 )
+#                 email.send()
+#                 return render(request, '_partials/message.html',
+#                               {'message', 'Please confirm your email address to complete the registration'})
+#         if 'signin_' in request.POST:
+#             form = LoginForm(data=request.POST)
+#             if form.is_valid():
+#                 user = form.get_user()
+#                 login(request, user, backend='buyers.backends.EmailBackend')
+#                 if 'next' in request.POST:
+#                     return redirect(request.POST.get('next'))
+#                 else:
+#                     return redirect('products:index-page')
+#             else:
+#                 messages.error(request, 'username or password not correct')
+#                 return render(request, 'accounts/login.html', {'sign_form': self.signup_form, 'login_form': self.login_form})
+#         return render(request, 'accounts/login.html', {'sign_form': self.signup_form, 'login_form': self.login_form})
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.signup_form = SignupForm()
-        self.login_form = LoginForm()
 
-    def get(self, request):
-        return render(request, 'accounts/login.html', {'sign_form': self.signup_form, 'login_form': self.login_form})
+class LoginView(auth_views.LoginView):
+    form_class = LoginForm
+    template_name = 'accounts/login.html'
 
-    def post(self, request):
-        if 'signup_' in request.POST:
-            form = SignupForm(request.POST)
-            if form.is_valid():
-                user = form.save(commit=False)
-                user.is_active = False
-                user.save()
-                current_site = get_current_site(request)
-                mail_subject = 'Activate your blog account.'
-                message = render_to_string('acc_active_email.html', {
-                    'user': user,
-                    'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    'token': account_activation_token.make_token(user),
-                })
-                to_email = form.cleaned_data.get('email')
-                email = EmailMessage(
-                    mail_subject, message, to=[to_email]
-                )
-                email.send()
-                return HttpResponse('Please confirm your email address to complete the registration')
-        if 'signin_' in request.POST:
-            form = LoginForm(data=request.POST)
-            if form.is_valid():
-                user = form.get_user()
-                login(request, user, backend='buyers.backends.EmailBackend')
-                if 'next' in request.POST:
-                    return redirect(request.POST.get('next'))
-                else:
-                    return redirect('products:index-page')
-        return render(request, 'accounts/login.html', {'sign_form': self.signup_form, 'login_form': self.login_form})
+    def post(self, request, *args, **kwargs):
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user, backend='buyers.backends.EmailBackend')
+            if 'next' in request.POST:
+                return redirect(request.POST.get('next'))
+            else:
+                return redirect('products:index-page')
+        return render(request, 'accounts/login.html', {'form': form})
+
+
+class SignupView(generic.CreateView):
+    form_class = SignupForm
+    template_name = 'accounts/signup.html'
+    success_url = reverse_lazy('login')
+
+    def post(self, request, *args, **kwargs):
+        logout(request)
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
+            current_site = get_current_site(request)
+            mail_subject = 'Activate your blog account.'
+
+            message = render_to_string('acc_active_email.html',
+                                       context={
+                                           'user': user,
+                                           'domain': current_site.domain,
+                                           'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                                           'token': account_activation_token.make_token(user),
+                                       },
+                                       request=request)
+            to_email = form.cleaned_data.get('email')
+            email = EmailMessage(
+                mail_subject, message, to=[to_email]
+            )
+            email.send()
+            message_text = 'Please confirm your email address to complete the registration'
+            return render(request, '_partials/message.html', {'message_text': message_text})
+        return render(request, 'accounts/signup.html', {'form': form})
 
 
 class Activate(View):
@@ -98,8 +154,10 @@ class AccountView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(AccountView, self).get_context_data(**kwargs)
-        context['buyer'] = Buyer.objects.filter(user_id=self.request.user.id)[0] if Buyer.objects.filter(user_id=self.request.user.id).exists() else None
-        context['address'] = Address.objects.filter(user_id=self.request.user.id)[0] if Address.objects.filter(user_id=self.request.user.id).exists() else None
+        context['buyer'] = Buyer.objects.filter(user_id=self.request.user.id)[0] if Buyer.objects.filter(
+            user_id=self.request.user.id).exists() else None
+        context['address'] = Address.objects.filter(user_id=self.request.user.id)[0] if Address.objects.filter(
+            user_id=self.request.user.id).exists() else None
         return context
 
     def post(self, request):

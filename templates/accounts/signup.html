@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static i18n path %}
+
+{% block content %}
+    <section class="page-login">
+        <div class="container">
+            <div class="register">
+                <h1 class="login-title">
+                    {% trans 'Register' %}
+                </h1>
+                {% if form.errors %}
+                    <span class="error-text">{% get_error form.errors as errors %}</span>
+                {% endif %}
+                {% for error in errors %}
+                    {{ error }}
+                    <br>
+                    <br>
+                {% endfor %}
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                    {{ form.email }}
+                    <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+                    {{ form.password1 }}
+                    <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+                    {{ form.password2 }}
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <button type="submit">Register</button>
+                        <a href="{% url 'buyers:signup_view' %}" style="text-decoration:underline; color:#B86D56;">Sign
+                            in</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

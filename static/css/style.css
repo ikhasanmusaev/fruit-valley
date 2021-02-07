@@ -4,6 +4,9 @@
   margin: 0;
   padding: 0;
 }
+.error-text ul li {
+  color: red !important;
+}
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1440,7 +1443,7 @@ p.info span {
 /* ****page-login**** */
 
 .page-login .container {
-  display: grid;
+  /*display: grid;*/
   grid-template-columns: 1fr 1fr;
   grid-gap: 30px;
   margin-top: 70px;
@@ -1494,7 +1497,8 @@ p.info span {
   border: none;
 }
 .social-login {
-  display: grid;
+  /*display: grid;*/
+  display: flex;
   grid-template-columns: 1fr 1fr;
   grid-gap: 30px;
 }

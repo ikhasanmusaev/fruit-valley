@@ -30,9 +30,11 @@
             <div class="th-right flex">
                 {% if not user.is_authenticated %}
                     <a href="{% url 'buyers:login_view' %}" class="login">
-                        <i class="fas fa-user"></i>
-                        <span>{% trans "Login" %}</span> /
-                        <span>{% trans "Register" %}</span>
+                        <i class="fas fa-sign-in-alt"></i><span>{% trans "Login" %}</span>
+                    </a>
+                    &nbsp; / &nbsp;
+                    <a href="{% url 'buyers:signup_view' %}" class="login">
+                        <i class="fas fa-user-plus"></i><span>{% trans "Register" %}</span>
                     </a>
                 {% else %}
                     <div class="dropdown">
