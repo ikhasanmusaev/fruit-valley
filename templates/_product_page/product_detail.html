@@ -1,5 +1,5 @@
 {% extends 'base_path.html' %}
-{% load static i18n %}
+{% load static i18n products %}
 
 {% block content %}
     {% get_current_language as LANGUAGE_CODE %}
@@ -9,7 +9,7 @@
                 <img src="http://{{ request.get_host }}{{ product.image.file.url }}" alt="">
                 <a href="javascript:void(0);" class="add-favourite"
                    onclick="add_to_favourite('{{ product.id }}')">
-                    <i class="far fa-heart"></i>
+                    <i class="far fa-heart {% call_method product 'is_liked' product.id user.id as liked_product %} {% if liked_product %}fas liked{% endif %}"></i>
                 </a>
             </div>
             <div class="product-details">

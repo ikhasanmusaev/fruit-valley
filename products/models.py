@@ -47,6 +47,10 @@ class Product(models.Model):
     def get_sale(self):
         return round(int(float(self.price_for_qty)) - int(float(self.price_for_qty)) * self.sale / 100)
 
+    @staticmethod
+    def is_liked(product_id, user_id):
+        return FavouriteProducts.objects.filter(product_id=product_id, user_id=user_id).exists()
+
     def description_snippet(self):
         return self.description[:150].replace('\n', ' ')
 

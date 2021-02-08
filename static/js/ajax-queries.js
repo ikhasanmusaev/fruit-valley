@@ -38,7 +38,7 @@ function getCookie(name) {
 
 const csrf_token = getCookie('csrftoken');
 
-function product_item(id, img, name, price, rating, sale = null) {
+function product_item(id, img, name, price, rating, sale = null, is_liked) {
     return `
             <div class="product">
                 <a href="/product/${id}" class="p-img">
@@ -63,7 +63,10 @@ function product_item(id, img, name, price, rating, sale = null) {
                     </ul>
                     <div class="add-to-card">
                         <a href="javascript:void(0);" class="add-favourite" onclick="add_to_favourite(${id})">
-                            <i class="far fa-heart"></i>
+                            <i class="far fa-heart `
+            , is_liked ? 'fas liked' : ''
+        ,
+            `"></i>
                         </a>
                         <a href="/product/${id}" class="add-card">
                             Read more..
@@ -100,6 +103,7 @@ function by_category(id) {
                         element['price'],
                         element['rating_stars'],
                         element['sale'] ? element['sale'] : null,
+                        element['is_liked'] === 1,
                     )
                 )
             })

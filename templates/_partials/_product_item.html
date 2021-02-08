@@ -1,4 +1,4 @@
-{% load static %}
+{% load static products %}
 <div class="product" id="product-{{ product.id }}">
     <a href="{% url 'products:product-detail' product.id %}" class="p-img">
         <img src="http://{{ request.get_host }}{{ product.image.file.url }}" alt="">
@@ -20,7 +20,7 @@
         </ul>
         <div class="add-to-card">
             <a href="javascript:void(0);" class="add-favourite" onclick="add_to_favourite({{ product.id }})">
-                <i class="far fa-heart"></i>
+                <i class="far fa-heart {% call_method product 'is_liked' product.id user.id as liked_product %} {% if liked_product %}fas liked{% endif %}" ></i>
             </a>
             {#            <a href="javascript:void(0);" class="add-card" onclick="addToCart({{ product.id }})">#}
             <a href="{% url 'products:product-detail' product.id %}" class="add-card">

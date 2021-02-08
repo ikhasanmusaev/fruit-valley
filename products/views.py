@@ -80,6 +80,7 @@ class ByCategory(View):
                 data['rating_stars'] = i.rating_stars
                 data['image'] = i.image.file.url
                 data['sale'] = i.get_sale()
+                data['is_liked'] = 1 if i.is_liked(i.id, request.user.id) else 0
                 products_list.append(data)
                 data = {}
             return JsonResponse({'data': products_list})

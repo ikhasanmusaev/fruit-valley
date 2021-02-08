@@ -10,13 +10,15 @@
                     {% trans "Login" %}
                 </h1>
                 {% if form.errors %}
-                    <span class="error-text">{% get_error form.errors as errors %}</span>
+                    {% get_error form.errors as errors %}
                 {% endif %}
+                <span class="error-text">
                 {% for error in errors %}
                     {{ error }}
                     <br>
                     <br>
                 {% endfor %}
+                </span>
                 <form action="" method="POST">
                     {% csrf_token %}
                     <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>

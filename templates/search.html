@@ -1,4 +1,5 @@
 {% extends 'base_path.html' %}
+{% load static %}
 
 {% block content %}
     <section class="search-container">
@@ -14,4 +15,7 @@
             </div>
         </div>
     </section>
+{% endblock %}
+{% block script %}
+    <script src="{% static "js/ajax-queries.js" %}"></script>
 {% endblock %}
