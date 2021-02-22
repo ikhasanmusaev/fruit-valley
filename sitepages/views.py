@@ -56,11 +56,8 @@ class SearchView(ListView):
     template_name = 'search.html'
 
     def get(self, request, *args, **kwargs):
-        print(not 'query' in request.GET)
-        print(not request.GET['query'])
-        print(request.GET['query'] == '')
+
         if not 'query' in request.GET or not request.GET['query'] and request.GET['query'] == '':
-            print(12)
             return redirect('products:index-page')
         return super().get(request, *args, **kwargs)
 

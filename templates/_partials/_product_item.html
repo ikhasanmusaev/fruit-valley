@@ -19,7 +19,8 @@
             {{ product.rating_stars|safe }}
         </ul>
         <div class="add-to-card">
-            <a href="javascript:void(0);" class="add-favourite" onclick="add_to_favourite({{ product.id }})">
+            <a href="javascript:void(0);" class="add-favourite"
+            {% if user.is_authenticated %}onclick="add_to_favourite({{ product.id }})"{% else %}onclick="window.location.href='/account/login/'"{% endif %}>
                 <i class="far fa-heart {% call_method product 'is_liked' product.id user.id as liked_product %} {% if liked_product %}fas liked{% endif %}" ></i>
             </a>
             {#            <a href="javascript:void(0);" class="add-card" onclick="addToCart({{ product.id }})">#}

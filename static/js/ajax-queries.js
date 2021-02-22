@@ -40,7 +40,7 @@ const csrf_token = getCookie('csrftoken');
 
 function product_item(id, img, name, price, rating, sale = null, is_liked) {
     return `
-            <div class="product">
+            <div class="product" id="product-${id}">
                 <a href="/product/${id}" class="p-img">
                     <img src="${location.protocol}//${location.host}${img}" alt="">
                 </a>
@@ -119,7 +119,6 @@ let addToCart = (product_id) => {
     const amount = $('.checked .cost').children('span').text().replace('$', '');
     let total = $('.quantity__input').val();
     let checked = $('.con-switch #check').is(':checked')
-    console.log(checked)
     $.ajax({
         type: 'POST',
         url: `/${language_code}/orders/cart/`,
