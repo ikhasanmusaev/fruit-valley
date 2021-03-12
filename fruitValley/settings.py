@@ -17,7 +17,7 @@ SECRET_KEY = env('SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = [env('SERVER_HOST')]
+ALLOWED_HOSTS = [env('SERVER_HOST'), 'localhost']
 
 # Application definition
 
@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'fruitValley.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': env('POSTGRES_DB'),
         'USER': env('POSTGRES_USER'),
         'PASSWORD': env('POSTGRES_PASSWORD'),
@@ -142,7 +142,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-#STATIC_ROOT = Path.joinpath(BASE_DIR, "static/")
+# STATIC_ROOT = Path.joinpath(BASE_DIR, "static/")
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = Path.joinpath(BASE_DIR, "media")
@@ -152,7 +152,6 @@ LOCALE_PATHS = (
 )
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
-
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
