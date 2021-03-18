@@ -135,7 +135,7 @@ class CheckoutOrderView(ListView):
                 # 'cart_id': i.id,
             })
 
-        order.products = products
+        order.products = json.dumps(products)
         order.save()
 
         return redirect('orders:orders-list')

@@ -19,7 +19,7 @@ class Order(models.Model):
     buyer = models.ForeignKey(User, on_delete=models.CASCADE)
     price = models.IntegerField()
     # qty = models.PositiveSmallIntegerField(default=1)
-    products = models.JSONField(null=True, blank=True)
+    products = models.TextField(null=True, blank=True)
     # type_of_selling = models.CharField(choices=TypeOfSelling.choices, blank=True, max_length=15)  # weight or wty
     # total = models.PositiveSmallIntegerField()  # weight or wty
     status = models.CharField(max_length=15, choices=STATUS.choices, default='waiting')
