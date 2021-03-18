@@ -35,7 +35,7 @@ class Category(models.Model):
     name = models.CharField(max_length=25)
     description = models.CharField(max_length=255, blank=True, null=True)
     slug = models.SlugField(unique=True)
-    menu_position = models.PositiveSmallIntegerField(default=0)  # if 0 status=False
+    menu_position = models.IntegerField(default=0)  # if 0 status=False
 
     def __str__(self):
         return self.name

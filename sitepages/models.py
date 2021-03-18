@@ -60,7 +60,7 @@ class SlideOfProduct(models.Model):
     text_3 = models.CharField(max_length=63, blank=True, null=True)
     image = models.OneToOneField(ProductImage, on_delete=models.CASCADE)
     link = models.CharField(max_length=63)
-    position = models.PositiveSmallIntegerField(default=0)  # if 0 not position
+    position = models.IntegerField(default=0)  # if 0 not position
 
     class Meta:
         ordering = ['position']

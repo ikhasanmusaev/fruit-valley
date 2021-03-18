@@ -36,7 +36,7 @@ class Cart(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     buyer = models.ForeignKey(User, on_delete=models.CASCADE)
     type_of_selling = models.CharField(choices=TypeOfSelling.choices, blank=True, max_length=15)  # weight or qty
-    total = models.PositiveSmallIntegerField(blank=True, null=True)  # weight or qty
+    total = models.IntegerField(blank=True, null=True)  # weight or qty
     date_of_creat = models.DateTimeField(auto_now_add=True)
     amount = models.CharField(max_length=31, default=0)
 
