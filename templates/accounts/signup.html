@@ -24,9 +24,16 @@
                     {{ form.password1 }}
                     <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
                     {{ form.password2 }}
+                    <div class="social-login">
+                        <a href="{% url 'buyers:social:begin' 'google-oauth2' %}"><img
+                                src="{% static 'images/google.png' %}" alt=""> Login with google</a>
+                        <a href="{% url 'buyers:social:begin' 'facebook' %}"><img
+                                src="{% static 'images/facebook.png' %}" alt=""> Login with facebook</a>
+                    </div>
                     <div style="display: flex; align-items: center; justify-content: space-between;">
                         <button type="submit">Register</button>
-                        <a href="{% url 'buyers:login_view' %}" style="text-decoration:underline; color:#B86D56;">Sign in</a>
+                        <a href="{% url 'buyers:login_view' %}" style="text-decoration:underline; color:#B86D56;">Sign
+                            in</a>
                     </div>
                 </form>
             </div>
